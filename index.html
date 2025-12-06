@@ -12,7 +12,7 @@
 
     <style>
         /* ==================================== */
-        /* TEMA: ELEGÂNCIA E CONTRASTE PRO       */
+        /* TEMA: ELEGÂNCIA E CONTRASTE PRO      */
         /* ==================================== */
         :root{
             --color-primary: #00A87F; /* Verde Esmeralda (Marca) */
@@ -75,9 +75,8 @@
             box-shadow: 0 15px 30px rgba(16,24,40,.1);
         }
         .ebook-cover{
-            /* >>> ALTERAÇÕES AQUI PARA MINIATURA <<< */
-            height:240px; /* NOVO: Reduzido de 320px para 240px para miniaturas */
-            object-fit:contain; /* NOVO: Alterado de 'cover' para 'contain' para mostrar a capa inteira */
+            height:320px; /* ALTERADO: Altura reduzida para 320px */
+            object-fit:cover;
             width:100%;
             filter: brightness(0.95);
             transition: filter .3s ease-in-out;
@@ -179,7 +178,7 @@
             body { padding-bottom: 70px; } /* Ajusta o padding de 80px para 70px */
         }
         @media (max-width:768px){
-            .ebook-cover{height:160px} /* NOVO: Altura ajustada de 220px para 160px para miniaturas em mobile */
+            .ebook-cover{height:220px} /* ALTERADO: Altura ajustada para 220px em mobile */
             .price{font-size:1.6rem} /* Fonte do preço menor em mobile */
             .hero{padding:30px 0 40px} /* DIMINUI padding do HERO em mobile */
             .btn-buy{padding: 10px 20px; font-size: 0.95rem;} /* Botão menor em mobile */
