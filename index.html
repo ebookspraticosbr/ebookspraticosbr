@@ -123,23 +123,23 @@
         }
         .testimonial .quote-icon{color:var(--color-primary);}
 
-        /* Botão Principal (.btn-buy) */
+        /* Botão Principal (.btn-buy) - DELICADO */
         .btn-buy{
             background-color: var(--color-primary);
             border-color: var(--color-primary);
-            box-shadow: 0 4px 12px rgba(0, 168, 127, 0.4);
-            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 168, 127, 0.2); 
+            border-radius: 6px; 
             color: var(--color-card-bg);
             transition: background-color .2s, transform .2s, box-shadow .2s;
-            padding: 8px 12px; /* Diminuído para se ajustar ao card menor */
-            font-size: 0.85rem; /* Diminuído para se ajustar ao card menor */
-            font-weight: 800;
+            padding: 6px 10px; 
+            font-size: 0.8rem; 
+            font-weight: 700; 
         }
         .btn-buy:hover{
             background-color: #008f6d;
             border-color: #008f6d;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 168, 127, 0.6);
+            transform: translateY(-1px); 
+            box-shadow: 0 4px 10px rgba(0, 168, 127, 0.4); 
         }
         
         /* Botão Secundário (btn-primary) */
@@ -162,7 +162,7 @@
             padding: 30px 0; 
         }
         
-        /* CTA Flutuante */
+        /* CTA Flutuante (Ajustado para o novo visual) */
         .sticky-cta {
             position: fixed;
             bottom: 0;
@@ -176,8 +176,9 @@
         }
         .sticky-cta .btn-buy {
             width: 100%;
-            font-size: 1.1rem; 
-            padding: 12px; 
+            font-size: 1rem; /* Mantido um pouco maior para o CTA flutuante */
+            padding: 10px; /* Mantido um padding decente para o CTA flutuante */
+            font-weight: 800;
         }
         
         /* Fade-in (Mantido) */
@@ -202,8 +203,17 @@
 
             .price{font-size:1.6rem} 
             .hero{padding:30px 0 40px} 
-            .btn-buy{padding: 10px 20px; font-size: 0.95rem;} 
         }
+        
+        /* ================================================= */
+        /* CORREÇÃO AQUI: Estilo para a imagem do logo Hotmart */
+        /* ================================================= */
+        .hotmart-logo {
+			width: 80px; /* Largura definida para caber no texto. */
+			height: auto;
+			/* Altera de 'middle' para 'sub' ou um valor negativo para subir */
+			vertical-align: sub; /* NOVO: Tenta subir o logo um pouco em relação à linha base do texto */
+		}
     </style>
 </head>
 <body>
@@ -255,15 +265,16 @@
         </div>
         
         <div class="container py-3">
-            <div class="p-3 bg-success-subtle text-success-emphasis border border-success-subtle rounded-3 text-center fade-in shadow-sm" role="alert">
-                <i class="fa-solid fa-shield-halved fa-lg me-2"></i>
-                <span class="fw-bold">COMPRA 100% SEGURA</span> 
-                <span class="small d-block d-md-inline-block ms-md-2">Transação processada pela **Hotmart**, a maior e mais confiável plataforma da América Latina.</span>
-            </div>
-        </div>
-        
-        
-        
+			<div class="p-3 bg-success-subtle text-success-emphasis border border-success-subtle rounded-3 text-center fade-in shadow-sm" role="alert">
+				<i class="fa-solid fa-shield-halved fa-lg me-2"></i>
+				<span class="fw-bold">COMPRA 100% SEGURA</span> 
+				<span class="small d-block d-md-inline-block ms-md-2">Transação processada pela
+					<a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+						<img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo">
+					</a>, a maior e mais confiável plataforma da América Latina.
+				</span>
+			</div>
+		</div>
         
         
         <hr class="my-4">
@@ -276,7 +287,9 @@
             <div class="ebook-card position-relative fade-in">
                 <span class="position-absolute top-0 start-0 m-2 badge bg-danger fw-bold shadow-sm rounded-pill small" role="status">MAIS VENDIDO</span> 
                 <img src="tdah.jpg" class="ebook-cover" alt="Capa do Ebook TDAH na Infância - Técnicas práticas para rotina e escola.">
-                <div class="p-2"> <h5 class="fw-bold fs-6" style="color:var(--color-primary);">TDAH na Infância</h5> <p class="text-muted small mb-2">Técnicas práticas para rotina e escola.</p> <div class="d-flex align-items-center my-2"> <div class="price">R$ 60</div>
+                <div class="p-2"> 
+                    <h5 class="fw-bold fs-6">TDAH na Infância</h5> 
+                    <p class="text-muted small mb-2">Técnicas práticas para rotina e escola.</p> <div class="d-flex align-items-center my-2"> <div class="price">R$ 60</div>
                     <div class="old-price">R$ 90</div>
                 </div>
                 <div class="d-grid gap-2">
@@ -288,63 +301,82 @@
 
         <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3"><div class="ebook-card fade-in" style="transition-delay: .1s">
             <img src="https://placehold.co/211x323/00A87F/ffffff?text=Ebook+Saude" class="ebook-cover" alt="Capa do Ebook Emagrecimento em Família">
-            <div class="p-2"><h5 class="fw-bold fs-6">Emagrecimento em Família</h5><p class="text-muted small mb-2">Plano de 30 dias com receitas saudáveis.</p>
+            <div class="p-2">
+                <h5 class="fw-bold fs-6">Emagrecimento em Família</h5> 
+                <p class="text-muted small mb-2">Plano de 30 dias com receitas saudáveis.</p>
             <div class="d-flex align-items-center my-2"><div class="price">R$ 67</div><div class="old-price">R$ 97</div></div><div class="d-grid gap-2">
             <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK2')" aria-label="Comprar Ebook Emagrecimento"><i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora</button></div></div></div></div>
         
         <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3"><div class="ebook-card fade-in position-relative" style="transition-delay: .2s">
             <span class="position-absolute top-0 start-0 m-2 badge bg-secondary fw-bold shadow-sm rounded-pill small" role="status">NOVO</span>
             <img src="https://placehold.co/211x323/1F2937/ffffff?text=Ebook+Renda" class="ebook-cover" alt="Capa do Ebook Renda Extra em Casa">
-            <div class="p-2"><h5 class="fw-bold fs-6">Renda Extra em Casa</h5><p class="text-muted small mb-2">+50 ideias testadas e aprovadas para gerar renda.</p>
+            <div class="p-2">
+                <h5 class="fw-bold fs-6">Renda Extra em Casa</h5> 
+                <p class="text-muted small mb-2">+50 ideias testadas e aprovadas para gerar renda.</p>
             <div class="d-flex align-items-center my-2"><div class="price">R$ 57</div></div><div class="d-grid gap-2">
             <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK3')" aria-label="Comprar Ebook Renda Extra"><i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora</button></div></div></div></div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3"><div class="ebook-card fade-in" style="transition-delay: .3s">
             <img src="https://placehold.co/211x323/DBC2CF/1F2937?text=Ebook+Maternidade" class="ebook-cover" alt="Capa do Ebook Maternidade Leve">
-            <div class="p-2"><h5 class="fw-bold fs-6">Maternidade Leve</h5><p class="text-muted small mb-2">Ser mãe sem perder a cabeça — guia realista e sem culpa.</p>
+            <div class="p-2">
+                <h5 class="fw-bold fs-6">Maternidade Leve</h5> 
+                <p class="text-muted small mb-2">Ser mãe sem perder a cabeça — guia realista e sem culpa.</p>
             <div class="d-flex align-items-center my-2"><div class="price">R$ 67</div></div><div class="d-grid gap-2">
-            <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK4')" aria-label="Comprar Ebook Maternidade Leve"><i class="fa-solid fa-tag me-2"></i>Comprar Agora</button></div></div></div></div>
+            <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK4')" aria-label="Comprar Ebook Maternidade Leve"><i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora</button></div></div></div></div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3"><div class="ebook-card fade-in" style="transition-delay: .4s">
             <img src="https://placehold.co/211x323/3B82F6/ffffff?text=Ebook+Financas" class="ebook-cover" alt="Capa do Ebook Finanças em Família">
-            <div class="p-2"><h5 class="fw-bold fs-6">Finanças em Família</h5><p class="text-muted small mb-2">Organize o orçamento familiar e faça o dinheiro sobrar.</p>
+            <div class="p-2">
+                <h5 class="fw-bold fs-6">Finanças em Família</h5> 
+                <p class="text-muted small mb-2">Organize o orçamento familiar e faça o dinheiro sobrar.</p>
             <div class="d-flex align-items-center my-2"><div class="price">R$ 77</div></div><div class="d-grid gap-2">
             <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK5')" aria-label="Comprar Ebook Finanças"><i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora</button></div></div></div></div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3"><div class="ebook-card fade-in position-relative" style="transition-delay: .5s">
             <span class="position-absolute top-0 start-0 m-2 badge bg-primary fw-bold shadow-sm rounded-pill small" style="background-color: var(--color-primary) !important;" role="status">Mais Vendido</span>
             <img src="https://placehold.co/211x323/60A5FA/ffffff?text=Ebook+Sono+Bebe" class="ebook-cover" alt="Capa do Ebook Sono do Bebê em 21 Dias">
-            <div class="p-2"><h5 class="fw-bold fs-6" style="color:#34d399;">Sono do Bebê em 21 Dias</h5><p class="text-muted small mb-2">Método simples para noites tranquilas (sem choro).</p>
+            <div class="p-2">
+                <h5 class="fw-bold fs-6">Sono do Bebê em 21 Dias</h5> 
+                <p class="text-muted small mb-2">Método simples para noites tranquilas (sem choro).</p>
             <div class="d-flex align-items-center my-2"><div class="price">R$ 87</div></div><div class="d-grid gap-2">
             <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK6')" aria-label="Comprar Ebook Sono do Bebê"><i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora</button></div></div></div></div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3"><div class="ebook-card fade-in" style="transition-delay: .6s">
             <img src="https://placehold.co/211x323/A78BFA/ffffff?text=Ebook+Vegano" class="ebook-cover" alt="Capa do Ebook Guia de Culinária Vegana Rápida">
-            <div class="p-2"><h5 class="fw-bold fs-6">Culinária Vegana Rápida</h5><p class="text-muted small mb-2">Receitas práticas para o dia a dia, prontas em 30 minutos.</p>
+            <div class="p-2">
+                <h5 class="fw-bold fs-6">Culinária Vegana Rápida</h5> 
+                <p class="text-muted small mb-2">Receitas práticas para o dia a dia, prontas em 30 minutos.</p>
             <div class="d-flex align-items-center my-2"><div class="price">R$ 49</div></div><div class="d-grid gap-2">
-            <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK7')" aria-label="Comprar Ebook Culinária Vegana"><i class="fa-solid fa-seedling me-2"></i>Comprar Agora</button></div></div></div></div>
+            <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK7')" aria-label="Comprar Ebook Culinária Vegana"><i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora</button></div></div></div></div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3"><div class="ebook-card fade-in" style="transition-delay: .7s">
             <img src="https://placehold.co/211x323/FBBF24/1F2937?text=Ebook+Pomodoro" class="ebook-cover" alt="Capa do Ebook Produtividade Máxima com Pomodoro">
-            <div class="p-2"><h5 class="fw-bold fs-6">Produtividade Máxima</h5><p class="text-muted small mb-2">Domine o Método Pomodoro e triplique sua eficiência.</p>
+            <div class="p-2">
+                <h5 class="fw-bold fs-6">Produtividade Máxima</h5> 
+                <p class="text-muted small mb-2">Domine o Método Pomodoro e triplique sua eficiência.</p>
             <div class="d-flex align-items-center my-2"><div class="price">R$ 55</div><div class="old-price">R$ 85</div></div><div class="d-grid gap-2">
-            <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK8')" aria-label="Comprar Ebook Produtividade"><i class="fa-solid fa-clock me-2"></i>Comprar Agora</button></div></div></div></div>
+            <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK8')" aria-label="Comprar Ebook Produtividade"><i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora</button></div></div></div></div>
 
     </div>
 </section>
         
         <hr class="my-4"> <div class="row align-items-center gy-4 mb-4"> <div class="col-md-6 fade-in">
                 <div class="scarcity d-flex justify-content-between align-items-center p-3"> <div>
-                        <div class="small fw-bold text-uppercase" style="color:var(--accent)">🚨 Últimas unidades com desconto!</div>
+                        <div class="small fw-bold text-uppercase" style="color:var(--color-accent)">🚨 Últimas unidades com desconto!</div>
                         <div class="h5 fw-bold my-1" id="stockCount">24</div> <div class="small text-muted">Corra, a promoção pode acabar a qualquer momento.</div>
                     </div>
                     <div class="text-end">
-                        <button class="btn btn-buy btn-sm" onclick="window.location.href='https://hotmart.com/LINK1'">Garantir Minha Oferta</button> <div class="mt-1 smaller text-muted">Compra 100% segura</div> </div>
+                        <button class="btn btn-buy btn-sm" onclick="window.location.href='https://hotmart.com/LINK1'"><i class="fa-solid fa-basket-shopping me-2"></i>Garantir Minha Oferta</button>
+                        <div class="mt-1 smaller text-muted">Compra 100% segura</div> </div>
                 </div>
             </div>
 
             <div class="col-md-6 fade-in" style="transition-delay: .1s">
-                <div class="p-3 bg-white rounded-4 shadow-sm border border-primary border-opacity-25"> <h6 class="fw-bold text-primary"><i class="fa-solid fa-check-circle me-2"></i>Por que comprar aqui?</h6> <ul class="list-unstyled mb-0 mt-2 small"> <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Acesso imediato e vitalício após a compra (**Hotmart**)</li> <li class="mb-1"><i class="fa-solid fa-credit-card text-success me-2"></i>Pagamento 100% seguro (Cartão/Pix/Boleto)</li> <li class="mb-1"><i class="fa-solid fa-undo text-success me-2"></i>Garantia incondicional de **7 dias** - seu risco é zero.</li> <li class="mb-0"><i class="fa-solid fa-book-reader text-success me-2"></i>Conteúdo direto ao ponto, aplicável desde o 1º dia.</li>
+                <div class="p-3 bg-white rounded-4 shadow-sm border border-primary border-opacity-25"> <h6 class="fw-bold text-primary"><i class="fa-solid fa-check-circle me-2"></i>Por que comprar aqui?</h6> <ul class="list-unstyled mb-0 mt-2 small"> 
+                    <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Acesso imediato e vitalício após a compra (<a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="color:var(--color-text-dark); text-decoration: underline;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo"></a>)</li> 
+                    <li class="mb-1"><i class="fa-solid fa-credit-card text-success me-2"></i>Pagamento 100% seguro (Cartão/Pix/Boleto)</li> 
+                    <li class="mb-1"><i class="fa-solid fa-undo text-success me-2"></i>Garantia incondicional de **7 dias** - seu risco é zero.</li> 
+                    <li class="mb-0"><i class="fa-solid fa-book-reader text-success me-2"></i>Conteúdo direto ao ponto, aplicável desde o 1º dia.</li>
                     </ul>
                 </div>
             </div>
@@ -390,12 +422,12 @@
                 <div class="accordion-item shadow-sm border rounded-3 mb-2"> <h2 class="accordion-header" id="faqTwo">
                         <button class="accordion-button collapsed fw-bold small" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="color:var(--color-text-dark);">Posso parcelar no cartão?</button> </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body small">Sim — a plataforma de pagamento (**Hotmart**) oferece opções de parcelamento em até 12x no cartão de crédito. As taxas e valores são exibidas na tela de checkout.</div> </div>
+                        <div class="accordion-body small">Sim — a plataforma de pagamento (<a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="color:var(--color-text-dark); text-decoration: underline;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo"></a>) oferece opções de parcelamento em até 12x no cartão de crédito. As taxas e valores são exibidas na tela de checkout.</div> </div>
                 </div>
                 <div class="accordion-item shadow-sm border rounded-3 mb-2"> <h2 class="accordion-header" id="faqThree">
                         <button class="accordion-button collapsed fw-bold small" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="color:var(--color-text-dark);">E se eu não gostar do conteúdo? Tenho garantia?</button> </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body small">Absolutamente. Você tem uma **garantia incondicional de 7 dias**. Se por qualquer motivo não gostar do conteúdo, basta solicitar o reembolso pela plataforma **Hotmart** e você terá seu dinheiro de volta, sem perguntas. Seu risco é zero.</div> </div>
+                        <div class="accordion-body small">Absolutamente. Você tem uma **garantia incondicional de 7 dias**. Se por qualquer motivo não gostar do conteúdo, basta solicitar o reembolso pela plataforma <a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="color:var(--color-text-dark); text-decoration: underline;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo"></a> e você terá seu dinheiro de volta, sem perguntas. Seu risco é zero.</div> </div>
                 </div>
             </div>
         </section>
