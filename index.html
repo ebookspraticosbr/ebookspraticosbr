@@ -53,6 +53,10 @@
             color: #d1d5db !important;
             font-size: 0.9rem; /* Links da Navbar menores */
         }
+        .navbar-toggler-icon {
+            /* CORREÇÃO APLICADA: Força o ícone hamburger para branco, impedindo a desconfiguração */
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
         .navbar-nav .nav-link:hover {color: #ffffff !important;}
         
         /* HERO */
@@ -223,12 +227,25 @@
             </div>
         </div>
         
-        <div class="container py-3"> <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+		<div class="container py-3"> <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
                 <div class="text-center fade-in" aria-label="Informações de Compra">
-                    <div class="d-inline-flex gap-2 align-items-center bg-light rounded-pill p-2 shadow-sm border border-secondary border-opacity-25"> <span class="badge bg-success text-white py-1 px-2 fw-bold rounded-pill small"><i class="fa-solid fa-lock me-1"></i> Pagamento Seguro</span> <span class="badge py-1 px-2 fw-bold rounded-pill small" style="background-color: #fca5a5; color: #991b1b;"><i class="fa-solid fa-undo me-1"></i> Garantia 7 Dias</span> <span class="text-muted smaller d-none d-lg-inline">Plataformas Hotmart | Mercado Pago</span> </div>
+                    <div class="d-inline-flex gap-2 align-items-center bg-light rounded-pill p-2 shadow-sm border border-secondary border-opacity-25"> 
+                        <span class="badge bg-success text-white py-1 px-2 fw-bold rounded-pill small"><i class="fa-solid fa-lock me-1"></i> Pagamento Seguro</span> 
+                        <span class="badge py-1 px-2 fw-bold rounded-pill small" style="background-color: #fca5a5; color: #991b1b;"><i class="fa-solid fa-undo me-1"></i> Garantia 7 Dias</span> 
+                        </div>
                 </div>
             </div>
         </div>
+		
+        <div class="container py-3">
+            <div class="p-3 bg-success-subtle text-success-emphasis border border-success-subtle rounded-3 text-center fade-in shadow-sm" role="alert">
+                <i class="fa-solid fa-shield-halved fa-lg me-2"></i>
+                <span class="fw-bold">COMPRA 100% SEGURA</span> 
+                <span class="small d-block d-md-inline-block ms-md-2">Transação processada pela **Hotmart**, a maior e mais confiável plataforma da América Latina.</span>
+            </div>
+        </div>
+        
+        
         
         
         <hr class="my-4">
@@ -297,7 +314,7 @@
             </div>
 
             <div class="col-md-6 fade-in" style="transition-delay: .1s">
-                <div class="p-3 bg-white rounded-4 shadow-sm border border-primary border-opacity-25"> <h6 class="fw-bold text-primary"><i class="fa-solid fa-check-circle me-2"></i>Por que comprar aqui?</h6> <ul class="list-unstyled mb-0 mt-2 small"> <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Acesso imediato e vitalício após a compra (Hotmart)</li> <li class="mb-1"><i class="fa-solid fa-credit-card text-success me-2"></i>Pagamento 100% seguro (Mercado Pago / cartão)</li> <li class="mb-1"><i class="fa-solid fa-undo text-success me-2"></i>Garantia incondicional de **7 dias** - seu risco é zero.</li> <li class="mb-0"><i class="fa-solid fa-book-reader text-success me-2"></i>Conteúdo direto ao ponto, aplicável desde o 1º dia.</li>
+                <div class="p-3 bg-white rounded-4 shadow-sm border border-primary border-opacity-25"> <h6 class="fw-bold text-primary"><i class="fa-solid fa-check-circle me-2"></i>Por que comprar aqui?</h6> <ul class="list-unstyled mb-0 mt-2 small"> <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Acesso imediato e vitalício após a compra (**Hotmart**)</li> <li class="mb-1"><i class="fa-solid fa-credit-card text-success me-2"></i>Pagamento 100% seguro (Cartão/Pix/Boleto)</li> <li class="mb-1"><i class="fa-solid fa-undo text-success me-2"></i>Garantia incondicional de **7 dias** - seu risco é zero.</li> <li class="mb-0"><i class="fa-solid fa-book-reader text-success me-2"></i>Conteúdo direto ao ponto, aplicável desde o 1º dia.</li>
                     </ul>
                 </div>
             </div>
@@ -338,17 +355,17 @@
         <hr class="my-4"> <section id="faq" aria-labelledby="faqTitle" class="my-4 fade-in"> <h3 id="faqTitle" class="fw-bold mb-3 h4 text-center text-uppercase" style="color:var(--color-primary); letter-spacing: 1.5px;">💡 Dúvidas Frequentes</h3> <div class="accordion mx-auto" id="faqAccordion" style="max-width: 700px;"> <div class="accordion-item shadow-sm border rounded-3 mb-2"> <h2 class="accordion-header" id="faqOne">
                         <button class="accordion-button fw-bold collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="color:var(--color-text-dark);">Como recebo o e-book após a compra?</button> </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body small">Após a **confirmação de pagamento** (que geralmente é imediata com cartão/pix), você recebe um link de acesso diretamente na sua conta Hotmart e no seu e-mail. O acesso é imediato e vitalício.</div> </div>
+                        <div class="accordion-body small">Após a **confirmação de pagamento** (que geralmente é imediata com cartão/pix), você recebe um link de acesso diretamente na sua conta **Hotmart** e no seu e-mail. O acesso é imediato e vitalício.</div> </div>
                 </div>
                 <div class="accordion-item shadow-sm border rounded-3 mb-2"> <h2 class="accordion-header" id="faqTwo">
                         <button class="accordion-button collapsed fw-bold small" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="color:var(--color-text-dark);">Posso parcelar no cartão?</button> </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body small">Sim — a plataforma de pagamento (Hotmart/Mercado Pago) oferece opções de parcelamento em até 12x no cartão de crédito. As taxas e valores são exibidos na tela de checkout.</div> </div>
+                        <div class="accordion-body small">Sim — a plataforma de pagamento (**Hotmart**) oferece opções de parcelamento em até 12x no cartão de crédito. As taxas e valores são exibidos na tela de checkout.</div> </div>
                 </div>
                 <div class="accordion-item shadow-sm border rounded-3 mb-2"> <h2 class="accordion-header" id="faqThree">
                         <button class="accordion-button collapsed fw-bold small" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="color:var(--color-text-dark);">E se eu não gostar do conteúdo? Tenho garantia?</button> </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body small">Absolutamente. Você tem uma **garantia incondicional de 7 dias**. Se por qualquer motivo não gostar do conteúdo, basta solicitar o reembolso pela plataforma Hotmart e você terá seu dinheiro de volta, sem perguntas. Seu risco é zero.</div> </div>
+                        <div class="accordion-body small">Absolutamente. Você tem uma **garantia incondicional de 7 dias**. Se por qualquer motivo não gostar do conteúdo, basta solicitar o reembolso pela plataforma **Hotmart** e você terá seu dinheiro de volta, sem perguntas. Seu risco é zero.</div> </div>
                 </div>
             </div>
         </section>
