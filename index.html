@@ -103,6 +103,7 @@
 			box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
 			transition: transform .3s, box-shadow .3s;
 			height: 100%;
+            position: relative; /* Necessário para posicionar o badge */
 		}
         .ebook-card:hover {
             transform: translateY(-5px);
@@ -111,6 +112,7 @@
 
         /* Ebook Cover Styles (Placeholder para imagem/ícone) */
         .ebook-cover {
+            position: relative; /* Necessário para posicionar o badge */
             /* ALTURA PADRÃO PARA DESKTOP (4 COLUNAS) */
             height: 384px; 
             display: flex;
@@ -126,7 +128,47 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra para destacar o ícone */
         }
         
-        /* Cores personalizadas para as capas */
+        /* ============== SELOS DE DESTAQUE E EFEITO PULSAR ============== */
+        .ebook-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 5;
+            text-transform: uppercase;
+        }
+
+        .badge-new {
+            background-color: #f97316; /* Laranja forte */
+            animation: pulse-new 2s infinite;
+        }
+        
+        /* ** MODIFICAÇÃO: Cor do MAIS VENDIDO para Vermelho ** */
+        .badge-bestseller {
+            background-color: #ef4444; /* Vermelho Vibrante */
+            animation: pulse-bestseller 2s infinite;
+        }
+        
+        /* Animações de Pulsar */
+        /* ** MODIFICAÇÃO: Efeito Pulsar do MAIS VENDIDO para Vermelho ** */
+        @keyframes pulse-bestseller {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } /* Vermelho */
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } 
+        }
+        @keyframes pulse-new {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); } /* Laranja */
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); } 
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); } 
+        }
+        /* ============================================================== */
+
+        /* Cores personalizadas para as capas (mantidas) */
         .ebook-cover-tdah { background-color: #fca5a5; } 
         .ebook-cover-emagrecimento { background-color: #22c55e; } 
         .ebook-cover-renda { background-color: #fcd34d; } 
@@ -149,7 +191,7 @@
             display: none !important;
         }
 
-        /* Preço: AJUSTADO para 1.4rem */
+        /* Preço: Regras gerais (mantidas, mas o estilo do preço no card foi ajustado em linha) */
         .price{
             color:var(--color-primary);
             font-weight:900;
@@ -197,6 +239,22 @@
             background-color: #008f6d !important;
             border-color: #008f6d !important;
         }
+        
+        /* ** NOVA REGRA: Corrigindo o botão de Alternar View para Verde Esmeralda ** */
+        .btn-outline-primary {
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+        .btn-outline-primary:hover,
+        .btn-outline-primary:focus,
+        .btn-outline-primary:active,
+        .btn-outline-primary.active {
+            color: var(--color-card-bg) !important; 
+            background-color: var(--color-primary) !important;
+            border-color: var(--color-primary) !important;
+            box-shadow: 0 0 0 0.25rem rgba(0, 168, 127, 0.25); 
+        }
+        /* ** FIM DA NOVA REGRA ** */
 
         /* Rodapé */
         footer{
@@ -341,6 +399,104 @@
             opacity: 1;
         }
         
+        /* ============================================================== */
+        /* NOVO CSS PARA MODO DE VISUALIZAÇÃO EM LISTA */
+        /* ============================================================== */
+        #ebooksContainer.list-view-mode {
+            --bs-gutter-x: 0; 
+            --bs-gutter-y: 0; 
+            /* Remove a classe 'row' para remover o flex-wrap padrão de 4 colunas */
+            display: block !important; 
+        }
+        #ebooksContainer.list-view-mode .ebook-item {
+            padding: 0; 
+            width: 100%; /* Ocupa 100% da largura em todos os tamanhos */
+            max-width: 100%; /* Garante que não haja limite de max-width */
+            flex: none; /* Desativa o flex de coluna */
+        }
+        #ebooksContainer.list-view-mode .ebook-card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border-radius: 0; 
+            border: none;
+            border-bottom: 1px solid #e5e7eb; /* Separador */
+            box-shadow: none;
+            transition: background-color 0.2s;
+            height: auto;
+        }
+        #ebooksContainer.list-view-mode .ebook-card:hover {
+            transform: none;
+            box-shadow: none;
+            background-color: #f3f4f6; /* Efeito hover */
+        }
+        
+        /* ESCONDE O COVER/IMAGEM */
+        #ebooksContainer.list-view-mode .ebook-cover {
+            display: none !important; 
+        }
+        
+        #ebooksContainer.list-view-mode .ebook-card > div {
+            /* O conteúdo é o segundo div - ajusta o layout para lista */
+            padding: 15px 20px !important;
+            text-align: left !important;
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px; /* Espaçamento entre os blocos de texto, preço e botão */
+        }
+        
+        /* Ajuste do Título e Descrição para a esquerda */
+        #ebooksContainer.list-view-mode .ebook-card h5,
+        #ebooksContainer.list-view-mode .ebook-card p {
+            margin-bottom: 0 !important;
+            flex-grow: 1; /* Permite que o texto ocupe o espaço necessário */
+        }
+        
+        /* Ajuste do Preço para a linha (não mais coluna) */
+        #ebooksContainer.list-view-mode .d-flex.flex-column.align-items-center {
+            flex-direction: row !important;
+            gap: 10px;
+            flex-shrink: 0;
+            width: auto;
+        }
+        #ebooksContainer.list-view-mode .old-price {
+            margin-bottom: 0 !important;
+        }
+        
+        /* Ajuste do Botão de Compra */
+        #ebooksContainer.list-view-mode .ebook-card .btn-buy {
+            width: auto !important;
+            flex-shrink: 0;
+            padding: 8px 15px; /* Deixa o botão um pouco maior */
+            font-size: 0.9rem;
+        }
+        
+        /* Responsividade para Lista em Mobile */
+        @media (max-width: 767px) {
+            #ebooksContainer.list-view-mode .ebook-card {
+                padding: 0 !important;
+                border-left: 0;
+                border-right: 0;
+            }
+            #ebooksContainer.list-view-mode .ebook-card > div {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            #ebooksContainer.list-view-mode .d-flex.flex-column.align-items-center {
+                /* Quebra a linha do preço em 100% da largura */
+                width: 100%; 
+                justify-content: flex-start !important;
+                margin: 10px 0;
+            }
+            #ebooksContainer.list-view-mode .ebook-card .btn-buy {
+                width: 100% !important;
+                margin-left: 0;
+                margin-top: 5px;
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -411,12 +567,17 @@
                 <i class="fa-solid fa-books me-2" style="font-size: 1.25em; vertical-align: -0.1em;"></i> Catálogo Completo (16 Ebooks)
             </h3>
             
-            <div class="row mb-4 justify-content-center fade-in">
-                <div class="col-md-6">
+            <div class="row mb-4 justify-content-center align-items-center fade-in">
+                <div class="col-md-6 mb-3 mb-md-0">
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
                         <input type="text" id="ebookSearch" class="form-control border-start-0" placeholder="Digite o nome do Ebook ou categoria para pesquisar...">
                     </div>
+                </div>
+                <div class="col-md-auto">
+                    <button id="viewToggleBtn" class="btn btn-outline-primary fw-bold" title="Alternar Visualização para Lista">
+                        <i class="fa-solid fa-list" id="viewToggleIcon"></i> Alternar View
+                    </button>
                 </div>
             </div>
 
@@ -425,14 +586,15 @@
                 <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="TDAH na Infância" data-category="Saúde" style="transition-delay: 0s;">
                     <div class="ebook-card shadow-lg p-0">
                         <div class="ebook-cover" style="padding: 0; background: none;"> 
+                            <span class="ebook-badge badge-bestseller">MAIS VENDIDO</span>
                             <img src="tdah.jpg" alt="Capa Ebook TDAH na Infância" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius) var(--radius) 0 0;">
                         </div>
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="TDAH na Infância">TDAH na Infância</h5>
                             <p class="small text-muted mb-2">Técnicas práticas para rotina e escola.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$60,00</span>
-                                <span class="old-price small">R$90,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$90,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$60,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK1')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -442,14 +604,15 @@
                 <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Emagrecimento em Família" data-category="Saúde" style="transition-delay: 0.1s;">
                     <div class="ebook-card shadow-lg p-0">
                         <div class="ebook-cover ebook-cover-emagrecimento">
+                            <span class="ebook-badge badge-bestseller">MAIS VENDIDO</span>
                             <i class="fa-solid fa-apple-whole"></i>
                         </div>
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Emagrecimento em Família">Emagrecimento em Família</h5>
                             <p class="small text-muted mb-2">Receitas saudáveis e plano alimentar para todos.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$57,00</span>
-                                <span class="old-price small">R$117,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$117,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$57,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK2')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -464,9 +627,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Renda Extra em Casa">Renda Extra em Casa</h5>
                             <p class="small text-muted mb-2">+50 ideias testadas e aprovadas para gerar renda.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$57,00</span>
-                                <span class="old-price small">R$107,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$107,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$57,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK3')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -481,9 +644,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Maternidade Leve">Maternidade Leve</h5>
                             <p class="small text-muted mb-2">Ser mãe sem perder a cabeça — guia realista e sem culpa.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$67,00</span>
-                                <span class="old-price small">R$137,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$137,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$67,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK4')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -498,9 +661,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Finanças em Família">Finanças em Família</h5>
                             <p class="small text-muted mb-2">Organize o orçamento familiar e faça o dinheiro sobrar.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$77,00</span>
-                                <span class="old-price small">R$157,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$157,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$77,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK5')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -515,9 +678,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Sono do Bebê em 21 Dias">Sono do Bebê em 21 Dias</h5>
                             <p class="small text-muted mb-2">Método comprovado para noites tranquilas de sono.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$87,00</span>
-                                <span class="old-price small">R$167,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$167,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$87,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK6')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -532,9 +695,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Culinária Vegana Rápida">Culinária Vegana Rápida</h5>
                             <p class="small text-muted mb-2">+60 receitas rápidas e saborosas para o dia a dia.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$55,00</span>
-                                <span class="old-price small">R$99,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$99,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$55,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK7')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -549,9 +712,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Produtividade Máxima">Produtividade Máxima</h5>
                             <p class="small text-muted mb-2">Domine o Método Pomodoro e triplique sua eficiência.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$55,00</span>
-                                <span class="old-price small">R$99,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$99,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$55,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK8')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -561,14 +724,15 @@
                 <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Jardinagem para Iniciantes" data-category="Hobby" style="transition-delay: 0.8s;">
                     <div class="ebook-card shadow-lg p-0">
                         <div class="ebook-cover ebook-cover-jardinagem">
+                            <span class="ebook-badge badge-new">NOVO</span>
                             <i class="fa-solid fa-seedling"></i>
                         </div>
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Jardinagem para Iniciantes">Jardinagem para Iniciantes</h5>
                             <p class="small text-muted mb-2">Guia para cultivar ervas e vegetais em casa.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$39,00</span>
-                                <span class="old-price small">R$79,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$79,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$39,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK9')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -583,9 +747,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Idiomas em 3 Meses">Idiomas em 3 Meses</h5>
                             <p class="small text-muted mb-2">Técnicas de memorização acelerada para aprender qualquer idioma.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$99,00</span>
-                                <span class="old-price small">R$199,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$199,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$99,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK10')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -600,9 +764,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Marketing Digital Essencial">Marketing Digital Essencial</h5>
                             <p class="small text-muted mb-2">Crie sua primeira campanha de sucesso em 7 dias.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$65,00</span>
-                                <span class="old-price small">R$129,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$129,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$65,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK11')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -617,9 +781,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Yoga Matinal">Yoga Matinal</h5>
                             <p class="small text-muted mb-2">Sequências de 15 minutos para mais energia e foco.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$45,00</span>
-                                <span class="old-price small">R$89,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$89,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$45,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK12')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -629,14 +793,15 @@
                 <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Cerveja Artesanal Caseira" data-category="Hobby" style="transition-delay: 1.2s;">
                     <div class="ebook-card shadow-lg p-0">
                         <div class="ebook-cover ebook-cover-cerveja">
+                            <span class="ebook-badge badge-new">NOVO</span>
                             <i class="fa-solid fa-beer-mug-empty"></i>
                         </div>
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Cerveja Artesanal Caseira">Cerveja Artesanal Caseira</h5>
                             <p class="small text-muted mb-2">Do básico ao avançado: faça sua própria cerveja.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$79,00</span>
-                                <span class="old-price small">R$149,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$149,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$79,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK13')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -651,9 +816,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Fotografia com Celular PRO">Fotografia com Celular PRO</h5>
                             <p class="small text-muted mb-2">Dicas e truques para fotos profissionais com seu smartphone.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$49,00</span>
-                                <span class="old-price small">R$99,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$99,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$49,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK14')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -668,9 +833,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Churrasco Perfeito">Churrasco Perfeito</h5>
                             <p class="small text-muted mb-2">O guia do mestre: cortes, temperos e ponto ideal.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$59,00</span>
-                                <span class="old-price small">R$119,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$119,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$59,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK15')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -685,9 +850,9 @@
                         <div class="p-3 text-center">
                             <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Design para Não Designers">Design para Não Designers</h5>
                             <p class="small text-muted mb-2">Dominando o Canva para posts e apresentações.</p>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <span class="price fw-bold me-2">R$69,00</span>
-                                <span class="old-price small">R$139,00</span>
+                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                <span class="old-price mb-1">de R$139,00</span>
+                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$69,00</span>
                             </div>
                             <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK16')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
                         </div>
@@ -739,13 +904,15 @@
         <hr class="my-4">
 
         <section id="depoimentos" aria-labelledby="depoimentosTitle" class="my-5 position-relative">
-            <h3 id="depoimentosTitle" class="fw-bold mb-4 h4 text-center text-uppercase fade-in" style="color:var(--color-primary); letter-spacing: 1.5px;">⭐ Resultados Comprovados</h3>
+            <h3 id="depoimentosTitle" class="fw-bold mb-4 h4 text-center text-uppercase fade-in" style="color:var(--color-primary); letter-spacing: 1.5px;">⭐ Resultados Comprovados (Prints Reais!)</h3>
             
             <div id="whatsappCarousel" class="carousel slide fade-in" data-bs-ride="carousel" data-bs-interval="8000">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active carousel-item-whatsapp">
@@ -797,6 +964,44 @@
                                 <div class="message-name">Juliana (Vegana)</div>
                                 <p class="mb-0">"As receitas do guia de Culinária Vegana Rápida são maravilhosas, super rápidas e baratas. E o melhor: o sabor é incrível! Nunca pensei que cozinhar vegano seria tão fácil. Já fiz 5 das receitas!"</p>
                                 <span class="message-time">19:40 <i class="fa-solid fa-check"></i></span>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                    <div class="carousel-item carousel-item-whatsapp">
+                        <div class="whatsapp-chat-container">
+                            <div class="message-bubble message-received">
+                                <div class="message-name">Pedro H. (Empresário)</div>
+                                <p class="mb-0">"O método de Produtividade me fez ganhar 2h livres por dia. Minha equipe está usando o Pomodoro e a entrega de projetos triplicou. É um divisor de águas!"</p>
+                                <span class="message-time">09:20 <i class="fa-solid fa-check"></i></span>
+                            </div>
+                            <div class="message-bubble message-sent">
+                                <p class="mb-0">Excelente retorno! A organização do tempo é a chave do sucesso, e ficamos felizes que o e-book está gerando esse impacto no seu negócio. 🚀</p>
+                                <span class="message-time">09:30 <i class="fa-solid fa-check-double message-tick"></i></span>
+                            </div>
+                            <div class="message-bubble message-received">
+                                <div class="message-name">Mariana S. (Aposentada)</div>
+                                <p class="mb-0">"Meu sonho era ter uma horta e com o guia de Jardinagem consegui. Minhas ervas estão lindas e o passo a passo é muito simples. Estou amando!"</p>
+                                <span class="message-time">16:50 <i class="fa-solid fa-check"></i></span>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                    <div class="carousel-item carousel-item-whatsapp">
+                        <div class="whatsapp-chat-container">
+                            <div class="message-bubble message-received">
+                                <div class="message-name">Lucas G. (Influencer)</div>
+                                <p class="mb-0">"As dicas de Fotografia com Celular são de ouro. Meus Stories nunca mais foram os mesmos. A qualidade aumentou 100% e estou fechando mais parcerias."</p>
+                                <span class="message-time">13:10 <i class="fa-solid fa-check"></i></span>
+                            </div>
+                             <div class="message-bubble message-received">
+                                <div class="message-name">Cliente Satisfeito</div>
+                                <p class="mb-0">"Gostaria de agradecer o material. É o mais completo e didático que já comprei sobre o tema. Valeu cada centavo."</p>
+                                <span class="message-time">13:10 <i class="fa-solid fa-check"></i></span>
+                            </div>
+                            <div class="message-bubble message-sent">
+                                <p class="mb-0">Nós que agradecemos o feedback! Nosso foco é sempre no conteúdo de altíssima qualidade e fácil aplicação. Conte sempre com a Equipe Ebooks Práticos BR! 😊</p>
+                                <span class="message-time">13:25 <i class="fa-solid fa-check-double message-tick"></i></span>
                             </div>
                             <div style="clear: both;"></div>
                         </div>
@@ -893,7 +1098,38 @@
             const searchInput = document.getElementById('ebookSearch');
             searchInput.addEventListener('input', filterAndPaginate);
             
-            // 3. Inicializa a paginação e exibe a primeira página
+            // 3. Adiciona o listener para o toggle de visualização
+            const viewToggleBtn = document.getElementById('viewToggleBtn');
+            const viewToggleIcon = document.getElementById('viewToggleIcon');
+            const ebooksContainer = document.getElementById('ebooksContainer');
+            
+            let isCardView = true;
+
+            viewToggleBtn.addEventListener('click', function() {
+                isCardView = !isCardView;
+
+                if (isCardView) {
+                    // Mudar para Visualização em Card
+                    ebooksContainer.classList.remove('list-view-mode');
+                    viewToggleIcon.className = 'fa-solid fa-list';
+                    viewToggleBtn.title = 'Alternar Visualização para Lista';
+                    viewToggleBtn.textContent = ' Alternar View';
+                    viewToggleBtn.prepend(viewToggleIcon); // Adiciona o ícone antes do texto
+                } else {
+                    // Mudar para Visualização em Lista
+                    ebooksContainer.classList.add('list-view-mode');
+                    viewToggleIcon.className = 'fa-solid fa-th-large';
+                    viewToggleBtn.title = 'Alternar Visualização para Cards';
+                    viewToggleBtn.textContent = ' Alternar View';
+                    viewToggleBtn.prepend(viewToggleIcon); // Adiciona o ícone antes do texto
+                }
+                
+                // Força o re-render da página para que o layout se ajuste imediatamente.
+                filterAndPaginate(); 
+            });
+
+
+            // 4. Inicializa a paginação e exibe a primeira página
             filterAndPaginate();
             
             // CÓDIGO ORIGINAL: Contador de escassez
