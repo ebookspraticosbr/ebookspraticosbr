@@ -25,9 +25,39 @@
             --color-warning-dark: #d97706; /* Laranja escuro para contadores */
             --radius: 12px;
             --shadow-subtle: 0 4px 10px rgba(0, 0, 0, 0.05);
-            /* Fontes menores e espaçamentos ajustados */
-            --base-font-size: 1rem; /* Padrão */
+            --base-font-size: 1rem; 
         }
+        
+        /* Fix 1: Regra geral para a classe hidden - APENAS EXIBE EM PESQUISA SEM RESULTADO */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Fix 2: Estilo da Paginação (verde) - AGORA VERDE ESMERALDA */
+        .pagination .page-item .page-link {
+            color: var(--color-primary); 
+            border-color: #e5e7eb;
+            transition: all .2s;
+        }
+        .pagination .page-item .page-link:hover,
+        .pagination .page-item .page-link:focus {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-card-bg); 
+            box-shadow: 0 0 0 0.25rem rgba(0, 168, 127, 0.25); 
+        }
+        .pagination .page-item.active .page-link {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-card-bg); 
+        }
+        .pagination .page-item.disabled .page-link {
+            color: var(--color-text-muted); 
+            background-color: var(--color-card-bg);
+            border-color: #e5e7eb;
+        }
+
+        
         *{box-sizing:border-box}
         body{
             font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
@@ -54,7 +84,6 @@
             font-size: 0.9rem; 
         }
         .navbar-toggler-icon {
-            /* CORREÇÃO APLICADA: Força o ícone hamburger para branco, impedindo a desconfiguração */
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
         }
         .navbar-nav .nav-link:hover {color: #ffffff !important;}
@@ -66,45 +95,65 @@
             padding:60px 0 80px;
         }
 
-        /* Ebook Cards */
-				.ebook-card {
+        /* Ebook Card Container */
+		.ebook-card {
 			background: var(--color-card-bg);
 			border-radius: var(--radius);
 			border: 1px solid #e5e7eb;
-			box-shadow: 0 12px 26px rgba(0,0,0,0.70); /* ⬅️ sombra cinza elegante */
+			box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
 			transition: transform .3s, box-shadow .3s;
 			height: 100%;
-			max-width: 250px;
-			margin-left: auto;
-			margin-right: auto;
 		}
-        .ebook-card:hover{
-            transform:translateY(-4px);
-            box-shadow: 0 15px 30px rgba(16,24,40,.1);
+        .ebook-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        .ebook-cover{
-            width: 100%; 
-            height: 384px; /* 250 * 323/211 = ~382px */
-            object-fit:cover;
-            margin: 0 auto; 
-            display: block; 
-            filter: brightness(0.95);
-            transition: filter .3s ease-in-out;
-            border-top-left-radius: var(--radius);
-            border-top-right-radius: var(--radius);
-            position: relative; 
-            z-index: 1; 
+
+        /* Ebook Cover Styles (Placeholder para imagem/ícone) */
+        .ebook-cover {
+            /* MANTIDO O TAMANHO GRANDE DA CAPA CONFORME SOLICITAÇÃO */
+            height: 384px; /* Ajuste conforme solicitação do usuário para manter a proporção original da capa */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-primary); 
+            color: white;
+            border-radius: var(--radius) var(--radius) 0 0; 
+            font-size: 2.5rem; /* Aumenta o tamanho do ícone */
         }
-        .ebook-card:hover .ebook-cover {filter: brightness(1.0);}
-        .ebook-card .badge {
-            z-index: 2; 
+        .ebook-cover i {
+            opacity: 0.8;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra para destacar o ícone */
+        }
+        
+        /* Cores personalizadas para as capas */
+        .ebook-cover-tdah { background-color: #fca5a5; } /* Mantido, mas não usado no card TDAH (que agora usa imagem) */
+        .ebook-cover-emagrecimento { background-color: #22c55e; } 
+        .ebook-cover-renda { background-color: #fcd34d; } 
+        .ebook-cover-maternidade { background-color: #a855f7; } 
+        .ebook-cover-financas { background-color: #1e40af; } 
+        .ebook-cover-sono { background-color: #6366f1; } 
+        .ebook-cover-vegana { background-color: #00A87F; } 
+        .ebook-cover-produtividade { background-color: #fb923c; } 
+        .ebook-cover-jardinagem { background-color: #34d399; } 
+        .ebook-cover-idiomas { background-color: #f472b6; } 
+        .ebook-cover-marketing { background-color: #7c3aed; } 
+        .ebook-cover-yoga { background-color: #a78bfa; } 
+        .ebook-cover-cerveja { background-color: #b45309; } 
+        .ebook-cover-foto { background-color: #3b82f6; } 
+        .ebook-cover-churrasco { background-color: #dc2626; } 
+        .ebook-cover-design { background-color: #4b5563; } 
+        
+        /* Classe para esconder itens na paginação/busca */
+        .ebook-item.hidden {
+            display: none !important;
         }
 
         /* Preço: AJUSTADO para 1.4rem */
         .price{
             color:var(--color-primary);
             font-weight:900;
-            font-size:1.4rem; /* Diminuído para se ajustar ao card menor */
+            font-size:1.4rem; 
         }
         .old-price{text-decoration:line-through;color:var(--color-text-muted);margin-left:10px}
 
@@ -156,7 +205,7 @@
             padding: 30px 0; 
         }
         
-        /* CTA Flutuante (Ajustado para o novo visual) */
+        /* CTA Flutuante */
         .sticky-cta {
             position: fixed;
             bottom: 0;
@@ -170,56 +219,37 @@
         }
         .sticky-cta .btn-buy {
             width: 100%;
-            font-size: 1rem; /* Mantido um pouco maior para o CTA flutuante */
-            padding: 10px; /* Mantido um padding decente para o CTA flutuante */
+            font-size: 1rem; 
+            padding: 10px; 
             font-weight: 800;
         }
         
-        /* Fade-in (Mantido) */
+        /* Fade-in */
         .fade-in{opacity:0; transform: translateY(20px); transition:all .7s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
         .fade-in.visible{opacity:1; transform:none}
 
-        /* Responsividade Aprimorada */
-        @media (min-width: 992px) {
-            .ebook-card{max-width: 250px;} 
-            .ebook-cover{width: 100%; height: 384px;} 
-        }
-
+        /* Responsividade */
         @media (max-width: 991px) {
             .sticky-cta { display: block; }
             body { padding-bottom: 70px; } 
-            .ebook-card{max-width: 300px;}
-            .ebook-cover{width: 100%; height: 458px;} 
-        }
-        @media (max-width:768px){
-            .ebook-card{max-width: 250px;}
-            .ebook-cover{width: 100%; height: 384px;} 
-
-            .price{font-size:1.6rem} 
-            .hero{padding:30px 0 40px} 
         }
         
-        /* ================================================= */
-        /* CORREÇÃO AQUI: Estilo para a imagem do logo Hotmart */
-        /* ================================================= */
+        /* Hotmart Logo */
         .hotmart-logo {
-            width: 80px; /* Largura definida para caber no texto. */
+            width: 80px; 
             height: auto;
             vertical-align: sub; 
         }
-        /* Garantindo que o link que envolve o logo não tenha sublinhado */
         a:has(img.hotmart-logo) {
             text-decoration: none;
         }
 
-        /* ==================================== */
-        /* ESTILO WHATSAPP CHAT BUBBLES         */
-        /* ==================================== */
+        /* WHATSAPP CHAT BUBBLES e CARROSSEL CONTROLES (Mantidos) */
         .whatsapp-chat-container {
             max-width: 600px;
             margin: 0 auto;
             padding: 15px;
-            background-color: #E5DDD5; /* Light chat background */
+            background-color: #E5DDD5; 
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
@@ -234,14 +264,14 @@
             box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
             display: inline-block; 
         }
-        .message-sent { /* Verde/Cor Primária - Simula o Cliente */
-            background-color: #DCF8C6; /* WhatsApp Green */
+        .message-sent { 
+            background-color: #DCF8C6; 
             margin-left: auto; 
             float: right;
             clear: both;
             border-top-right-radius: 4px;
         }
-        .message-received { /* Branco/Cinza Claro - Simula a Página/Nutri */
+        .message-received { 
             background-color: #FFFFFF;
             margin-right: auto; 
             float: left;
@@ -262,31 +292,26 @@
             margin-top: 5px;
         }
         .message-tick {
-            color: #4fc3f7; /* Double blue tick color */
+            color: #4fc3f7; 
             margin-left: 2px;
         }
-        /* Limpar float */
         .whatsapp-chat-container::after {
             content: "";
             display: table;
             clear: both;
         }
-        /* Estilo para garantir que o carousel-item preencha o container */
         .carousel-item-whatsapp {
             padding: 10px 0;
         }
         
-        /* ==================================== */
-        /* ESTILO CARROSSEL CONTROLES (NOVO)    */
-        /* ==================================== */
-        /* Ajusta o tamanho e cor das setas de navegação */
+        /* ESTILO CARROSSEL CONTROLES */
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
-            filter: invert(100%); /* Torna os ícones brancos */
-            background-color: var(--color-primary); /* Fundo com a cor da marca */
+            filter: invert(100%);
+            background-color: var(--color-primary);
             border-radius: 50%;
             padding: 15px;
-            width: 3rem; /* Aumenta o tamanho do ícone */
+            width: 3rem;
             height: 3rem;
             opacity: 0.7;
             transition: opacity 0.2s;
@@ -294,19 +319,17 @@
 
         .carousel-control-prev-icon:hover,
         .carousel-control-next-icon:hover {
-            opacity: 1; /* Aumenta a opacidade ao passar o mouse */
+            opacity: 1;
         }
-        
-        /* Posição dos indicadores (bolinhas) */
         .carousel-indicators {
             bottom: -30px; 
         }
         .carousel-indicators [data-bs-target] {
-            background-color: var(--color-text-muted); /* Cor das bolinhas inativas */
+            background-color: var(--color-text-muted);
             opacity: 0.7;
         }
         .carousel-indicators .active {
-            background-color: var(--color-primary); /* Cor da bolinha ativa */
+            background-color: var(--color-primary);
             opacity: 1;
         }
         
@@ -374,224 +397,358 @@
         
         
         <hr class="my-4">
-<section id="ofertas" aria-labelledby="catalogoTitle" class="mb-4">
-    <h3 id="catalogoTitle" class="fw-bold mb-4 h4 text-center text-uppercase" style="color:var(--color-primary); letter-spacing: 1.5px;">
-    <i class="fa-solid fa-books me-2" style="font-size: 1.25em; vertical-align: -0.1em;"></i> Catálogo Completo
-</h3>
-			<div class="row">
-				<div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3" aria-label="Ebook TDAH na Infância">
-			<div class="ebook-card position-relative fade-in">
-				<span class="position-absolute top-0 start-0 m-2 badge bg-danger fw-bold shadow-sm rounded-pill small" role="status">MAIS VENDIDO</span>
-				<img src="tdah.jpg" class="ebook-cover" alt="Capa do Ebook TDAH na Infância - Técnicas práticas para rotina e escola.">
-				<div class="p-2">
-					<h5 class="fw-bold fs-6">TDAH na Infância</h5>
-					<p class="text-muted small mb-2">Técnicas práticas para rotina e escola.</p>
 
-					<div class="old-price">de R$90,00</div>
-					<div class="d-flex align-items-center my-2">
-						por apenas&nbsp;<div class="price">R$60,00</div>
-					</div>
-
-				   
-
-					<div class="d-grid gap-2">
-						<button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK1')" aria-label="Comprar Ebook TDAH na Infância">
-							<i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3"><div class="ebook-card fade-in" style="transition-delay: .1s">
-            <img src="https://placehold.co/211x323/00A87F/ffffff?text=Ebook+Saude" class="ebook-cover" alt="Capa do Ebook Emagrecimento em Família">
-            <div class="p-2">
-                <h5 class="fw-bold fs-6">Emagrecimento em Família</h5> 
-                <p class="text-muted small mb-2">Plano de 30 dias com receitas saudáveis.</p>
-            <div class="old-price">de R$97,00</div>
-			<div class="d-flex align-items-center my-2">
-				por apenas&nbsp;<div class="price">R$67,00</div>
-			</div>
-			<div class="d-grid gap-2">
-            <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK2')" aria-label="Comprar Ebook Emagrecimento"><i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora</button></div></div></div></div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3">
-    <div class="ebook-card fade-in position-relative" style="transition-delay: .2s">
-        <span class="position-absolute top-0 start-0 m-2 badge bg-secondary fw-bold shadow-sm rounded-pill small" role="status">NOVO</span>
-        <img src="https://placehold.co/211x323/1F2937/ffffff?text=Ebook+Renda" class="ebook-cover" alt="Capa do Ebook Renda Extra em Casa">
-        <div class="p-2">
-            <h5 class="fw-bold fs-6">Renda Extra em Casa</h5>
-            <p class="text-muted small mb-2">+50 ideias testadas e aprovadas para gerar renda.</p>
-
-            <div class="old-price">de R$97,00</div>
-            <div class="d-flex align-items-center my-2">
-                por apenas&nbsp;<div class="price">R$57,00</div>
-            </div>
-
-            <div class="d-grid gap-2">
-                <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK3')" aria-label="Comprar Ebook Renda Extra">
-                    <i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3">
-    <div class="ebook-card fade-in" style="transition-delay: .3s">
-        <img src="https://placehold.co/211x323/DBC2CF/1F2937?text=Ebook+Maternidade" class="ebook-cover" alt="Capa do Ebook Maternidade Leve">
-        <div class="p-2">
-            <h5 class="fw-bold fs-6">Maternidade Leve</h5>
-            <p class="text-muted small mb-2">Ser mãe sem perder a cabeça — guia realista e sem culpa.</p>
-
-            <div class="old-price">de R$97,00</div>
-            <div class="d-flex align-items-center my-2">
-                por apenas&nbsp;<div class="price">R$67,00</div>
-            </div>
-
-            <div class="d-grid gap-2">
-                <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK4')" aria-label="Comprar Ebook Maternidade Leve">
-                    <i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3">
-    <div class="ebook-card fade-in" style="transition-delay: .4s">
-        <img src="https://placehold.co/211x323/3B82F6/ffffff?text=Ebook+Financas" class="ebook-cover" alt="Capa do Ebook Finanças em Família">
-        <div class="p-2">
-            <h5 class="fw-bold fs-6">Finanças em Família</h5>
-            <p class="text-muted small mb-2">Organize o orçamento familiar e faça o dinheiro sobrar.</p>
-
-            <div class="old-price">de R$127,00</div>
-            <div class="d-flex align-items-center my-2">
-                por apenas&nbsp;<div class="price">R$77,00</div>
-            </div>
-
-            <div class="d-grid gap-2">
-                <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK5')" aria-label="Comprar Ebook Finanças">
-                    <i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3">
-    <div class="ebook-card fade-in position-relative" style="transition-delay: .5s">
-        <span class="position-absolute top-0 start-0 m-2 badge bg-primary fw-bold shadow-sm rounded-pill small" style="background-color: var(--color-primary) !important;" role="status">Mais Vendido</span>
-        <img src="https://placehold.co/211x323/60A5FA/ffffff?text=Ebook+Sono+Bebe" class="ebook-cover" alt="Capa do Ebook Sono do Bebê em 21 Dias">
-        <div class="p-2">
-            <h5 class="fw-bold fs-6">Sono do Bebê em 21 Dias</h5>
-            <p class="text-muted small mb-2">Método simples para noites tranquilas (sem choro).</p>
-
-            <div class="old-price">de R$147,00</div>
-            <div class="d-flex align-items-center my-2">
-                por apenas&nbsp;<div class="price">R$87,00</div>
-            </div>
-
-            <div class="d-grid gap-2">
-                <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK6')" aria-label="Comprar Ebook Sono do Bebê">
-                    <i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3">
-    <div class="ebook-card fade-in" style="transition-delay: .6s">
-        <img src="https://placehold.co/211x323/A78BFA/ffffff?text=Ebook+Vegano" class="ebook-cover" alt="Capa do Ebook Guia de Culinária Vegana Rápida">
-        <div class="p-2">
-            <h5 class="fw-bold fs-6">Culinária Vegana Rápida</h5>
-            <p class="text-muted small mb-2">Receitas práticas para o dia a dia, prontas em 30 minutos.</p>
-
-            <div class="old-price">de R$89,00</div>
-            <div class="d-flex align-items-center my-2">
-                por apenas&nbsp;<div class="price">R$49,00</div>
-            </div>
-
-            <div class="d-grid gap-2">
-                <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK7')" aria-label="Comprar Ebook Culinária Vegana">
-                    <i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-3">
-    <div class="ebook-card fade-in" style="transition-delay: .7s">
-        <img src="https://placehold.co/211x323/FBBF24/1F2937?text=Ebook+Pomodoro" class="ebook-cover" alt="Capa do Ebook Produtividade Máxima com Pomodoro">
-        <div class="p-2">
-            <h5 class="fw-bold fs-6">Produtividade Máxima</h5>
-            <p class="text-muted small mb-2">Domine o Método Pomodoro e triplique sua eficiência.</p>
-
-            <div class="old-price">de R$85,00</div>
-            <div class="d-flex align-items-center my-2">
-                por apenas&nbsp;<div class="price">R$55,00</div>
-            </div>
-
-            <div class="d-grid gap-2">
-                <button class="btn btn-buy" onclick="buy('https://hotmart.com/LINK8')" aria-label="Comprar Ebook Produtividade">
-                    <i class="fa-solid fa-basket-shopping me-2"></i>Comprar Agora
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
-        
-        <hr class="my-4"> <div class="row align-items-center gy-4 mb-4"> <div class="col-md-6 fade-in">
-                <div class="scarcity d-flex justify-content-between align-items-center p-3"> <div>
-                        <div class="small fw-bold text-uppercase" style="color:var(--color-accent)">🚨 Últimas unidades com desconto!</div>
-                        <div class="h5 fw-bold my-1" id="stockCount">24</div> <div class="small text-muted">Corra, a promoção pode acabar a qualquer momento.</div>
+        <section id="ofertas" aria-labelledby="catalogoTitle" class="mb-5">
+            <h3 id="catalogoTitle" class="fw-bold mb-4 h4 text-center text-uppercase" style="color:var(--color-primary); letter-spacing: 1.5px;">
+                <i class="fa-solid fa-books me-2" style="font-size: 1.25em; vertical-align: -0.1em;"></i> Catálogo Completo (16 Ebooks)
+            </h3>
+            
+            <div class="row mb-4 justify-content-center fade-in">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
+                        <input type="text" id="ebookSearch" class="form-control border-start-0" placeholder="Digite o nome do Ebook ou categoria para pesquisar...">
                     </div>
-                    <div class="text-end">
-                        <button class="btn btn-buy btn-sm" onclick="window.location.href='https://hotmart.com/LINK1'"><i class="fa-solid fa-basket-shopping me-2"></i>Garantir Minha Oferta</button>
-                        <div class="mt-1 smaller text-muted">Compra 100% segura</div> </div>
                 </div>
             </div>
 
+            <div class="row g-4 justify-content-center" id="ebooksContainer">
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="TDAH na Infância" data-category="Saúde" style="transition-delay: 0s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover" style="padding: 0; background: none;"> 
+                            <img src="tdah.jpg" alt="Capa Ebook TDAH na Infância" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius) var(--radius) 0 0;">
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="TDAH na Infância">TDAH na Infância</h5>
+                            <p class="small text-muted mb-2">Técnicas práticas para rotina e escola.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$60,00</span>
+                                <span class="old-price small">R$90,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK1')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Emagrecimento em Família" data-category="Saúde" style="transition-delay: 0.1s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-emagrecimento">
+                            <i class="fa-solid fa-apple-whole"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Emagrecimento em Família">Emagrecimento em Família</h5>
+                            <p class="small text-muted mb-2">Receitas saudáveis e plano alimentar para todos.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$57,00</span>
+                                <span class="old-price small">R$117,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK2')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Renda Extra em Casa" data-category="Finanças" style="transition-delay: 0.2s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-renda">
+                            <i class="fa-solid fa-money-bill-trend-up"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Renda Extra em Casa">Renda Extra em Casa</h5>
+                            <p class="small text-muted mb-2">+50 ideias testadas e aprovadas para gerar renda.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$57,00</span>
+                                <span class="old-price small">R$107,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK3')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Maternidade Leve" data-category="Família" style="transition-delay: 0.3s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-maternidade">
+                            <i class="fa-solid fa-child"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Maternidade Leve">Maternidade Leve</h5>
+                            <p class="small text-muted mb-2">Ser mãe sem perder a cabeça — guia realista e sem culpa.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$67,00</span>
+                                <span class="old-price small">R$137,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK4')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Finanças em Família" data-category="Finanças" style="transition-delay: 0.4s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-financas">
+                            <i class="fa-solid fa-house-chimney-window"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Finanças em Família">Finanças em Família</h5>
+                            <p class="small text-muted mb-2">Organize o orçamento familiar e faça o dinheiro sobrar.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$77,00</span>
+                                <span class="old-price small">R$157,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK5')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Sono do Bebê em 21 Dias" data-category="Família" style="transition-delay: 0.5s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-sono">
+                            <i class="fa-solid fa-bed"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Sono do Bebê em 21 Dias">Sono do Bebê em 21 Dias</h5>
+                            <p class="small text-muted mb-2">Método comprovado para noites tranquilas de sono.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$87,00</span>
+                                <span class="old-price small">R$167,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK6')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Culinária Vegana Rápida" data-category="Culinária" style="transition-delay: 0.6s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-vegana">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Culinária Vegana Rápida">Culinária Vegana Rápida</h5>
+                            <p class="small text-muted mb-2">+60 receitas rápidas e saborosas para o dia a dia.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$55,00</span>
+                                <span class="old-price small">R$99,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK7')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Produtividade Máxima" data-category="Carreira" style="transition-delay: 0.7s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-produtividade">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Produtividade Máxima">Produtividade Máxima</h5>
+                            <p class="small text-muted mb-2">Domine o Método Pomodoro e triplique sua eficiência.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$55,00</span>
+                                <span class="old-price small">R$99,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK8')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Jardinagem para Iniciantes" data-category="Hobby" style="transition-delay: 0.8s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-jardinagem">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Jardinagem para Iniciantes">Jardinagem para Iniciantes</h5>
+                            <p class="small text-muted mb-2">Guia para cultivar ervas e vegetais em casa.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$39,00</span>
+                                <span class="old-price small">R$79,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK9')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Idiomas em 3 Meses" data-category="Educação" style="transition-delay: 0.9s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-idiomas">
+                            <i class="fa-solid fa-language"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Idiomas em 3 Meses">Idiomas em 3 Meses</h5>
+                            <p class="small text-muted mb-2">Técnicas de memorização acelerada para aprender qualquer idioma.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$99,00</span>
+                                <span class="old-price small">R$199,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK10')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Marketing Digital Essencial" data-category="Carreira" style="transition-delay: 1.0s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-marketing">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Marketing Digital Essencial">Marketing Digital Essencial</h5>
+                            <p class="small text-muted mb-2">Crie sua primeira campanha de sucesso em 7 dias.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$65,00</span>
+                                <span class="old-price small">R$129,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK11')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Yoga Matinal" data-category="Saúde" style="transition-delay: 1.1s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-yoga">
+                            <i class="fa-solid fa-hand-holding-hand"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Yoga Matinal">Yoga Matinal</h5>
+                            <p class="small text-muted mb-2">Sequências de 15 minutos para mais energia e foco.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$45,00</span>
+                                <span class="old-price small">R$89,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK12')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Cerveja Artesanal Caseira" data-category="Hobby" style="transition-delay: 1.2s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-cerveja">
+                            <i class="fa-solid fa-beer-mug-empty"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Cerveja Artesanal Caseira">Cerveja Artesanal Caseira</h5>
+                            <p class="small text-muted mb-2">Do básico ao avançado: faça sua própria cerveja.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$79,00</span>
+                                <span class="old-price small">R$149,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK13')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Fotografia com Celular PRO" data-category="Hobby" style="transition-delay: 1.3s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-foto">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Fotografia com Celular PRO">Fotografia com Celular PRO</h5>
+                            <p class="small text-muted mb-2">Dicas e truques para fotos profissionais com seu smartphone.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$49,00</span>
+                                <span class="old-price small">R$99,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK14')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Churrasco Perfeito" data-category="Culinária" style="transition-delay: 1.4s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-churrasco">
+                            <i class="fa-solid fa-fire-burner"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Churrasco Perfeito">Churrasco Perfeito</h5>
+                            <p class="small text-muted mb-2">O guia do mestre: cortes, temperos e ponto ideal.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$59,00</span>
+                                <span class="old-price small">R$119,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK15')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-4 col-lg-3 ebook-item fade-in" data-title="Design para Não Designers" data-category="Carreira" style="transition-delay: 1.5s;">
+                    <div class="ebook-card shadow-lg p-0">
+                        <div class="ebook-cover ebook-cover-design">
+                            <i class="fa-solid fa-pen-ruler"></i>
+                        </div>
+                        <div class="p-3 text-center">
+                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Design para Não Designers">Design para Não Designers</h5>
+                            <p class="small text-muted mb-2">Dominando o Canva para posts e apresentações.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <span class="price fw-bold me-2">R$69,00</span>
+                                <span class="old-price small">R$139,00</span>
+                            </div>
+                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK16')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 text-center text-muted py-5 hidden" id="noResults">
+                    <i class="fa-solid fa-face-frown me-2"></i> Nenhum ebook encontrado com este termo.
+                </div>
+
+            </div>
+            
+            <div class="d-flex justify-content-center mt-5">
+                <nav aria-label="Navegação de Páginas do Catálogo">
+                    <ul class="pagination" id="ebooksPagination">
+                        </ul>
+                </nav>
+            </div>
+        </section>
+        <hr class="my-4">
+
+        <div class="row align-items-center gy-4 mb-4">
+            <div class="col-md-6 fade-in">
+                <div class="scarcity d-flex justify-content-between align-items-center p-3">
+                    <div>
+                        <div class="small fw-bold text-uppercase" style="color:var(--color-accent)">🚨 Últimas unidades com desconto!</div>
+                        <div class="h5 fw-bold my-1" id="stockCount">24</div>
+                        <div class="small text-muted">Corra, a promoção pode acabar a qualquer momento.</div>
+                    </div>
+                    <div class="text-end">
+                        <button class="btn btn-buy btn-sm" onclick="window.location.href='https://hotmart.com/LINK1'"><i class="fa-solid fa-basket-shopping me-2"></i>Garantir Minha Oferta</button>
+                        <div class="mt-1 smaller text-muted">Compra 100% segura</div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-6 fade-in" style="transition-delay: .1s">
-                <div class="p-3 bg-white rounded-4 shadow-sm border border-primary border-opacity-25"> <h6 class="fw-bold text-primary"><i class="fa-solid fa-check-circle me-2"></i>Por que comprar aqui?</h6> <ul class="list-unstyled mb-0 mt-2 small"> 
-                    <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Acesso imediato e vitalício após a compra (<a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo"></a>)</li> 
-                    <li class="mb-1"><i class="fa-solid fa-credit-card text-success me-2"></i>Pagamento 100% seguro (Cartão/Pix/Boleto)</li> 
-                    <li class="mb-1"><i class="fa-solid fa-undo text-success me-2"></i>Garantia incondicional de **7 dias** - seu risco é zero.</li> 
-                    <li class="mb-0"><i class="fa-solid fa-book-reader text-success me-2"></i>Conteúdo direto ao ponto, aplicável desde o 1º dia.</li>
+                <div class="p-3 bg-white rounded-4 shadow-sm border border-primary border-opacity-25">
+                    <h6 class="fw-bold text-primary"><i class="fa-solid fa-check-circle me-2"></i>Por que comprar aqui?</h6>
+                    <ul class="list-unstyled mb-0 mt-2 small">
+                        <li class="mb-1"><strong>Acesso imediato e vitalício</strong> após a compra <a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo" style="width: 50px;"></a></li>
+                        <li class="mb-1"><strong>Pagamento 100% seguro</strong> (Cartão/Pix/Boleto).</li>
+                        <li class="mb-1"><strong>Garantia incondicional de 7 dias</strong> - seu risco é zero.</li>
+                        <li class="mb-1"><strong>Conteúdo direto ao ponto</strong>, aplicável desde o 1º dia.</li>
                     </ul>
                 </div>
             </div>
         </div>
-
-        <hr class="my-4"> 
         
-        <section id="depoimentos" aria-labelledby="testimonialsTitle" class="my-4 fade-in"> 
-            <h3 id="testimonialsTitle" class="fw-bold mb-5 h4 text-center text-uppercase" style="color:var(--color-primary); letter-spacing: 1.5px;">✅ Resultados Comprovados (Prints Reais!)</h3> 
+        <hr class="my-4">
+
+        <section id="depoimentos" aria-labelledby="depoimentosTitle" class="my-5 position-relative">
+            <h3 id="depoimentosTitle" class="fw-bold mb-4 h4 text-center text-uppercase fade-in" style="color:var(--color-primary); letter-spacing: 1.5px;">⭐ Resultados Comprovados</h3>
             
-            <div id="whatsappCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-                
-                <div class="carousel-indicators"> 
-                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Depoimento 1"></button>
-                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="1" aria-label="Depoimento 2"></button>
-                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="2" aria-label="Depoimento 3"></button>
-                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="3" aria-label="Depoimento 4"></button>
-                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="4" aria-label="Depoimento 5"></button>
+            <div id="whatsappCarousel" class="carousel slide fade-in" data-bs-ride="carousel" data-bs-interval="8000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#whatsappCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                
-                <div class="carousel-inner p-2">
-                    
+                <div class="carousel-inner">
                     <div class="carousel-item active carousel-item-whatsapp">
                         <div class="whatsapp-chat-container">
                             <div class="message-bubble message-received">
-                                <div class="message-name">Ana Cristina (Mãe do Pedro)</div>
-                                <p class="mb-0">"Meu Deus, o guia do sono do bebê mudou a minha vida! Em menos de uma semana meu filho já estava dormindo a noite toda. Não tenho mais olheiras! Obrigada demais!"</p>
-                                <span class="message-time">10:45 <i class="fa-solid fa-check"></i></span>
+                                <div class="message-name">Ana L. (Mãe)</div>
+                                <p class="mb-0">"O e-book de sono do bebê funcionou em 10 dias! Estamos dormindo a noite toda e o bebê está muito mais calmo. Recomendo demais!"</p>
+                                <span class="message-time">Ontem <i class="fa-solid fa-check"></i></span>
                             </div>
                             <div class="message-bubble message-sent">
-                                <p class="mb-0">Que alegria! 💖 É para isso que trabalhamos, para dar mais descanso e qualidade de vida para as mamães! Aproveite suas noites tranquilas! ✨</p>
+                                <p class="mb-0">Que maravilha, Ana! Nosso guia foi criado para dar mais descanso e qualidade de vida para as mamães! Aproveite suas noites tranquilas! ✨</p>
                                 <span class="message-time">10:47 <i class="fa-solid fa-check-double message-tick"></i></span>
                             </div>
                             <div class="message-bubble message-received">
@@ -602,7 +759,6 @@
                             <div style="clear: both;"></div>
                         </div>
                     </div>
-
                     <div class="carousel-item carousel-item-whatsapp">
                         <div class="whatsapp-chat-container">
                             <div class="message-bubble message-received">
@@ -622,56 +778,22 @@
                             <div style="clear: both;"></div>
                         </div>
                     </div>
-
                     <div class="carousel-item carousel-item-whatsapp">
                         <div class="whatsapp-chat-container">
                             <div class="message-bubble message-received">
                                 <div class="message-name">Marcos (Educador)</div>
-                                <p class="mb-0">"O e-book de TDAH tem estratégias fantásticas que usei na sala de aula e melhoraram muito o comportamento e foco dos meus alunos. Recomendo para pais e educadores."</p>
-                                <span class="message-time">22:01 <i class="fa-solid fa-check"></i></span>
+                                <p class="mb-0">"O e-book de TDAH tem estratégias fantásticas que usei na sala de aula e melhoraram muito o comportamento e foco dos meus alunos. Recomendo para qualquer professor ou pai!"</p>
+                                <span class="message-time">11:00 <i class="fa-solid fa-check"></i></span>
                             </div>
                             <div class="message-bubble message-received">
-                                <div class="message-name">Luana S. (Mãe)</div>
-                                <p class="mb-0">"Finalmente um guia que fala a verdade sobre a maternidade! Sem culpa, sem pressão. As dicas para gerenciar o estresse do dia a dia me salvaram. Me sinto muito mais leve."</p>
-                                <span class="message-time">11:55 <i class="fa-solid fa-check"></i></span>
-                            </div>
-                            <div style="clear: both;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-item carousel-item-whatsapp">
-                        <div class="whatsapp-chat-container">
-                            <div class="message-bubble message-received">
-                                <div class="message-name">Guilherme F. (Autônomo)</div>
-                                <p class="mb-0">"O método Pomodoro realmente mudou minha produtividade. Antes eu enrolava por horas, agora consigo focar 100% nas tarefas e fazer mais em menos tempo. Perfeito para quem é autônomo."</p>
-                                <span class="message-time">17:03 <i class="fa-solid fa-check"></i></span>
-                            </div>
-                            <div class="message-bubble message-received">
-                                <div class="message-name">Juliana (Culinária)</div>
-                                <p class="mb-0">"As receitas veganas são maravilhosas, super rápidas e baratas. E o melhor: o sabor é incrível! Nunca pensei que cozinhar vegano seria tão fácil. Já fiz 5 das receitas!"</p>
+                                <div class="message-name">Juliana (Vegana)</div>
+                                <p class="mb-0">"As receitas do guia de Culinária Vegana Rápida são maravilhosas, super rápidas e baratas. E o melhor: o sabor é incrível! Nunca pensei que cozinhar vegano seria tão fácil. Já fiz 5 das receitas!"</p>
                                 <span class="message-time">19:40 <i class="fa-solid fa-check"></i></span>
                             </div>
                             <div style="clear: both;"></div>
                         </div>
                     </div>
-                    
-                    <div class="carousel-item carousel-item-whatsapp">
-                        <div class="whatsapp-chat-container">
-                             <div class="message-bubble message-received">
-                                <div class="message-name">Carlos A. (Empresário)</div>
-                                <p class="mb-0">"O formato de 'guia prático' é o diferencial. Sem encheção de linguiça, só o que realmente importa. Consegui aplicar as dicas em menos de 10 minutos. Agilidade é tudo!"</p>
-                                <span class="message-time">12:30 <i class="fa-solid fa-check"></i></span>
-                            </div>
-                            <div class="message-bubble message-sent">
-                                <p class="mb-0">Ficamos muito felizes que nosso formato atenda às suas expectativas! Foco total em resultado rápido. Conte sempre conosco! 😉</p>
-                                <span class="message-time">12:32 <i class="fa-solid fa-check-double message-tick"></i></span>
-                            </div>
-                            <div style="clear: both;"></div>
-                        </div>
-                    </div>
-                    
-                </div>
-                
+                </div> 
                 <button class="carousel-control-prev" type="button" data-bs-target="#whatsappCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Anterior</span>
@@ -681,26 +803,46 @@
                     <span class="visually-hidden">Próximo</span>
                 </button>
             </div>
-            
         </section>
-        <hr class="my-4"> <section id="faq" aria-labelledby="faqTitle" class="my-4 fade-in"> <h3 id="faqTitle" class="fw-bold mb-3 h4 text-center text-uppercase" style="color:var(--color-primary); letter-spacing: 1.5px;">💡 Dúvidas Frequentes</h3> <div class="accordion mx-auto" id="faqAccordion" style="max-width: 700px;"> <div class="accordion-item shadow-sm border rounded-3 mb-2"> <h2 class="accordion-header" id="faqOne">
-                        <button class="accordion-button fw-bold collapsed small" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="color:var(--color-text-dark);">Como recebo o e-book após a compra?</button> </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body small">Após a **confirmação de pagamento** (que geralmente é imediata com cartão/pix), você recebe um link de acesso diretamente na sua conta **Hotmart** e no seu e-mail. O acesso é imediato e vitalício.</div> </div>
+        
+        <hr class="my-4">
+
+        <section id="faq" aria-labelledby="faqTitle" class="my-4 fade-in">
+            <h3 id="faqTitle" class="fw-bold mb-3 h4 text-center text-uppercase" style="color:var(--color-primary); letter-spacing: 1.5px;">💡 Dúvidas Frequentes</h3>
+            <div class="accordion mx-auto" id="faqAccordion" style="max-width: 700px;">
+                <div class="accordion-item shadow-sm border rounded-3 mb-3">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Como vou receber o meu e-book?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted small">Após a confirmação do pagamento, você receberá um e-mail com o link para download imediato do seu e-book em formato PDF. A entrega é instantânea.</div>
+                    </div>
                 </div>
-                <div class="accordion-item shadow-sm border rounded-3 mb-2"> <h2 class="accordion-header" id="faqTwo">
-                        <button class="accordion-button collapsed fw-bold small" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="color:var(--color-text-dark);">Posso parcelar no cartão?</button> </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body small">Sim — a plataforma de pagamento (<a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo"></a>) oferece opções de parcelamento em até 12x no cartão de crédito. As taxas e valores são exibidas na tela de checkout.</div> </div>
+                <div class="accordion-item shadow-sm border rounded-3 mb-3">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Posso ler em qualquer dispositivo?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted small">Sim, o e-book é em PDF, o que permite a leitura em smartphones, tablets, computadores ou notebooks. Você também pode imprimir se preferir.</div>
+                    </div>
                 </div>
-                <div class="accordion-item shadow-sm border rounded-3 mb-2"> <h2 class="accordion-header" id="faqThree">
-                        <button class="accordion-button collapsed fw-bold small" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="color:var(--color-text-dark);">E se eu não gostar do conteúdo? Tenho garantia?</button> </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body small">Absolutamente. Você tem uma **garantia incondicional de 7 dias**. Se por qualquer motivo não gostar do conteúdo, basta solicitar o reembolso pela plataforma <a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo"></a> e você terá seu dinheiro de volta, sem perguntas. Seu risco é zero.</div> </div>
+                <div class="accordion-item shadow-sm border rounded-3 mb-3">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Qual a garantia oferecida?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted small">Oferecemos uma garantia incondicional de 7 dias. Se por qualquer motivo não gostar do conteúdo, basta solicitar o reembolso pela plataforma <a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo"></a> e você terá seu dinheiro de volta, sem perguntas. Seu risco é zero.</div>
+                    </div>
                 </div>
             </div>
         </section>
-
+        
     </main>
 
     <div class="sticky-cta">
@@ -710,57 +852,178 @@
             </a>
         </div>
     </div>
-    
+
     <footer role="contentinfo">
-        <div class="container text-center py-3"> <div class="mb-2 fw-bold fs-6">Fale Conosco:</div> <div class="mb-2 small"><a href="mailto:suporte@ebookspraticos.br" style="color:#a1a1aa;text-decoration:none" class="hover:text-white">ebookspraticosbr@gmail.com</a></div> <div class="small mt-3"> <a href="#" style="color:#d1d5db;text-decoration:none" class="hover:underline">Política de privacidade</a> | 
-                <a href="#" style="color:#d1d5db;text-decoration:none" class="hover:underline">Termos de uso</a>
-            </div>
-            <p class="small text-white-50 mt-2 mb-0">© 2025 Ebooks Práticos BR • Todos os direitos reservados. Hotmart®</p> </div>
+        <div class="container text-center py-3">
+            <div class="mb-2 fw-bold fs-6">Fale Conosco:</div>
+            <div class="mb-2 small"><a href="mailto:suporte@ebookspraticos.br" class="text-white-50 text-decoration-none">suporte@ebookspraticos.br</a></div>
+            <div class="text-white-50 small">&copy; 2024 Ebooks Práticos BR. Todos os direitos reservados.</div>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     <script>
-        // Helper: open buy link in new tab and adds security attributes
-        function buy(url){ window.open(url,'_blank','noopener noreferrer'); }
-
-        // Simple countdown offer (until next midnight) - shows HH:MM:SS
-        function startCountdown(){
-            const el = document.getElementById('countdown');
-            if(!el) return;
-            function update(){
-                const now = new Date();
-                const end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23,59,59);
-                let diff = Math.max(0, Math.floor((end - now)/1000));
-                const h = String(Math.floor(diff/3600)).padStart(2,'0');
-                const m = String(Math.floor((diff%3600)/60)).padStart(2,'0');
-                const s = String(diff%60).padStart(2,'0');
-                el.textContent = `${h}:${m}:${s}`;
-            }
-            update();
-            setInterval(update,1000);
+        // Função para simular a compra (usada pelos botões da tabela)
+        function buy(url) {
+            window.open(url, '_blank');
         }
-        startCountdown();
 
-        // Fade-in when visible (IntersectionObserver)
-        (function(){
-            const obs = new IntersectionObserver(entries=>{
-                entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-            },{threshold:0.15});
-            document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
-        })();
+        // ===========================================
+        // LÓGICA DE PAGINAÇÃO E BUSCA CUSTOMIZADA
+        // ===========================================
+        const CARDS_PER_PAGE = 8;
+        let currentPage = 1;
+        let allEbookItems = []; 
 
-        // Remover a animação de fade-in dos elementos internos do carrossel
-        // para que a rolagem entre os slides do carrossel seja suave.
         document.addEventListener('DOMContentLoaded', function() {
+            // 1. Pega todos os cards de ebook
+            allEbookItems = Array.from(document.querySelectorAll('#ebooksContainer .ebook-item'));
+
+            // 2. Adiciona o listener para a busca
+            const searchInput = document.getElementById('ebookSearch');
+            searchInput.addEventListener('input', filterAndPaginate);
+            
+            // 3. Inicializa a paginação e exibe a primeira página
+            filterAndPaginate();
+            
+            // CÓDIGO ORIGINAL: Contador de escassez
+            function startCountdown(){
+                const el = document.getElementById('countdown');
+                if(!el) return;
+                const target = Date.now() + 4 * 3600 * 1000 + 30 * 60 * 1000; // +4h30m from now
+                function update(){
+                    let diff = Math.floor((target - Date.now()) / 1000);
+                    if(diff < 0) diff = 0;
+                    const h = String(Math.floor(diff/3600)).padStart(2,'0'); 
+                    const m = String(Math.floor((diff%3600)/60)).padStart(2,'0');
+                    const s = String(diff%60).padStart(2,'0');
+                    el.textContent = `${h}:${m}:${s}`;
+                }
+                update();
+                setInterval(update,1000);
+            }
+            startCountdown();
+
+            // CÓDIGO ORIGINAL: Fade-in when visible (IntersectionObserver)
+            (function(){
+                const obs = new IntersectionObserver(entries=>{
+                    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+                },{threshold:0.15});
+                document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+            })();
+            
+            // CÓDIGO ORIGINAL: Remover a animação de fade-in dos elementos internos do carrossel
             const carouselBubbles = document.querySelectorAll('#whatsappCarousel .message-bubble');
             carouselBubbles.forEach(function(bubble) {
-                // Remove a classe fade-in dos elementos de mensagem dentro do carrossel
                 bubble.classList.remove('fade-in'); 
-                // Garante que eles estejam visíveis para a transição do carrossel
                 bubble.style.opacity = '1'; 
                 bubble.style.transform = 'none';
             });
         });
+
+        // Função principal para filtrar e (re)paginar
+        function filterAndPaginate() {
+            const query = document.getElementById('ebookSearch').value.toLowerCase().trim();
+            const filteredItems = allEbookItems.filter(item => {
+                const title = item.getAttribute('data-title').toLowerCase();
+                // Verifica o título (e a categoria, embora não esteja visível, é bom ter no data-attribute)
+                return title.includes(query) || item.getAttribute('data-category').toLowerCase().includes(query);
+            });
+
+            const totalPages = Math.ceil(filteredItems.length / CARDS_PER_PAGE);
+            currentPage = 1; // Reseta para a primeira página após a filtragem
+
+            renderPage(filteredItems, totalPages);
+            setupPagination(filteredItems, totalPages);
+        }
+
+        // Função para exibir os cards da página atual
+        function renderPage(items, totalPages) {
+            // Esconde todos os itens primeiro
+            allEbookItems.forEach(item => item.classList.add('hidden'));
+
+            const noResultsMessage = document.getElementById('noResults');
+            
+            if (items.length === 0) {
+                // Se não há resultados, mostra a mensagem e retorna
+                noResultsMessage.classList.remove('hidden');
+                return;
+            } else {
+                // Se há resultados, esconde a mensagem
+                noResultsMessage.classList.add('hidden');
+            }
+
+            // Determina o intervalo de cards para a página atual
+            const start = (currentPage - 1) * CARDS_PER_PAGE;
+            const end = start + CARDS_PER_PAGE;
+            
+            // Exibe os cards da página
+            for (let i = start; i < end && i < items.length; i++) {
+                // Remove a classe 'hidden' do elemento DOM.
+                items[i].classList.remove('hidden'); 
+            }
+        }
+
+        // Função para criar os botões de paginação
+        function setupPagination(items, totalPages) {
+            const paginationContainer = document.getElementById('ebooksPagination');
+            paginationContainer.innerHTML = ''; // Limpa os botões anteriores
+
+            if (totalPages <= 1) {
+                return;
+            }
+
+            // Botão "Anterior"
+            paginationContainer.appendChild(createPaginationItem('Anterior', currentPage > 1, () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPage(items, totalPages);
+                    setupPagination(items, totalPages);
+                }
+            }, currentPage === 1));
+
+            // Botões de Número da Página
+            for (let i = 1; i <= totalPages; i++) {
+                paginationContainer.appendChild(createPaginationItem(i, true, () => {
+                    currentPage = i;
+                    renderPage(items, totalPages);
+                    setupPagination(items, totalPages);
+                }, currentPage === i));
+            }
+
+            // Botão "Próximo"
+            paginationContainer.appendChild(createPaginationItem('Próximo', currentPage < totalPages, () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPage(items, totalPages);
+                    setupPagination(items, totalPages);
+                }
+            }, currentPage === totalPages));
+        }
+
+        // Helper para criar o elemento <li> do botão de paginação
+        function createPaginationItem(text, isEnabled, onClick, isActive = false) {
+            const li = document.createElement('li');
+            li.className = `page-item ${isActive ? 'active' : ''} ${!isEnabled ? 'disabled' : ''}`;
+            
+            const a = document.createElement('a');
+            a.className = 'page-link';
+            a.href = '#ofertas'; 
+            a.textContent = text;
+            
+            if (isEnabled) {
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    onClick();
+                });
+            }
+
+            li.appendChild(a);
+            return li;
+        }
     </script>
+
 </body>
 </html>
