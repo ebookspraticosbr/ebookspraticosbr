@@ -111,8 +111,8 @@
 
         /* Ebook Cover Styles (Placeholder para imagem/ícone) */
         .ebook-cover {
-            /* MANTIDO O TAMANHO GRANDE DA CAPA CONFORME SOLICITAÇÃO */
-            height: 384px; /* Ajuste conforme solicitação do usuário para manter a proporção original da capa */
+            /* ALTURA PADRÃO PARA DESKTOP (4 COLUNAS) */
+            height: 384px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -127,7 +127,7 @@
         }
         
         /* Cores personalizadas para as capas */
-        .ebook-cover-tdah { background-color: #fca5a5; } /* Mantido, mas não usado no card TDAH (que agora usa imagem) */
+        .ebook-cover-tdah { background-color: #fca5a5; } 
         .ebook-cover-emagrecimento { background-color: #22c55e; } 
         .ebook-cover-renda { background-color: #fcd34d; } 
         .ebook-cover-maternidade { background-color: #a855f7; } 
@@ -232,6 +232,14 @@
         @media (max-width: 991px) {
             .sticky-cta { display: block; }
             body { padding-bottom: 70px; } 
+        }
+        
+        /* CORREÇÃO FIXA: Reduz a altura da capa do ebook para o mobile/tablet */
+        @media (max-width: 767px) {
+            .ebook-cover {
+                /* A altura de 250px garante uma proporção mais compacta e visualmente mais agradável para 2 colunas. */
+                height: 250px; 
+            }
         }
         
         /* Hotmart Logo */
