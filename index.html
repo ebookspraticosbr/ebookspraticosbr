@@ -1517,6 +1517,81 @@
 
             container.appendChild(popover);
         }
+		
+		
+		
+		// ===========================================
+// NOVO: LÓGICA DE ABRIR/FECHAR POPOVER NO MOBILE (Click/Tap)
+// CORREÇÃO: Adicionado listener no Popover para fechar ao clicar nele mesmo.
+// ===========================================
+
+// Função para fechar o popover clicado (usada explicitamente no popover)
+function closeSelf(e) {
+    e.stopPropagation(); // Impede que o clique suba para o container ou document
+    // 'this' neste contexto é o elemento .rating-popover
+    this.classList.remove('active'); 
+}
+
+
+function togglePopover(e) {
+    // ESSENCIAL: Interrompe o clique para que não ative o closeAllPopovers no document
+    e.stopPropagation(); 
+    
+    // 'this' se refere ao .rating-container clicado
+    const popover = this.querySelector('.rating-popover');
+    
+    // Fecha todos os outros popovers abertos
+    document.querySelectorAll('.rating-popover.active').forEach(openPopover => {
+        if (openPopover !== popover) {
+            openPopover.classList.remove('active');
+        }
+    });
+
+    // Alterna o estado do popover clicado
+    popover.classList.toggle('active');
+}
+
+function closeAllPopovers(e) {
+    document.querySelectorAll('.rating-popover.active').forEach(popover => {
+        // Verifica se o clique foi fora de *qualquer* container de avaliação
+        if (!e.target.closest('.rating-container')) {
+            popover.classList.remove('active');
+        }
+    });
+}
+
+
+function setupRatingToggle() {
+    document.querySelectorAll('.rating-container').forEach(container => {
+        const popover = container.querySelector('.rating-popover');
+        
+        // 1. Listener para o CONTAINER (Abre/Fecha/Toggle)
+        container.removeEventListener('click', togglePopover); 
+        container.removeEventListener('touchstart', togglePopover); 
+        
+        container.addEventListener('click', togglePopover);
+        container.addEventListener('touchstart', togglePopover);
+
+        // 2. Listener para o POPOVER (SÓ FECHA)
+        if (popover) {
+            popover.removeEventListener('click', closeSelf);
+            popover.removeEventListener('touchstart', closeSelf);
+            
+            popover.addEventListener('click', closeSelf);
+            popover.addEventListener('touchstart', closeSelf);
+        }
+    });
+
+    // Remove e re-adiciona o listener global para fechar ao clicar fora
+    document.removeEventListener('click', closeAllPopovers);
+    document.addEventListener('click', closeAllPopovers);
+}
+
+// ===========================================
+// FIM DA LÓGICA DE ABRIR/FECHAR POPOVER
+// ===========================================
+		
+		
 
         // ===========================================
         // LÓGICA DE PAGINAÇÃO E BUSCA CUSTOMIZADA
@@ -1727,4 +1802,3 @@
 
 </body>
 </html>
-
