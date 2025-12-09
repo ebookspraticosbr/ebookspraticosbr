@@ -99,7 +99,7 @@
 		.ebook-card {
 			background: var(--color-card-bg);
 			border-radius: var(--radius);
-			border: 1px solid #e5e7eb;
+			border: 1px solid rgba(0, 0, 0, 0.15); /* Alterado: Cor mais escura para a "linha preta fina sutil" (era #e5e7eb) */
 			box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
 			transition: transform .3s, box-shadow .3s;
 			height: 100%;
@@ -191,11 +191,24 @@
             display: none !important;
         }
 
-        /* Preço: Regras gerais (mantidas, mas o estilo do preço no card foi ajustado em linha) */
+        /* ** MODIFICAÇÃO DE FONTE: Redução para sutilidade ** */
+        .ebook-card h5 {
+            font-size: 0.95rem; 
+        }
+        .ebook-card p {
+            font-size: 0.8rem;
+        }
+        /* FIM DA MODIFICAÇÃO DE FONTE */
+
+        /* Preço: Regras gerais */
         .price{
             color:var(--color-primary);
             font-weight:900;
             font-size:1.4rem; 
+        }
+        /* NOVO CSS: Ajuste de Fonte do Preço de Venda */
+        .ebook-card .selling-price {
+            font-size: 1.1rem !important; /* Reduz de 1.25rem para 1.1rem */
         }
         .old-price{text-decoration:line-through;color:var(--color-text-muted);margin-left:10px}
 
@@ -227,6 +240,24 @@
             box-shadow: 0 4px 10px rgba(0, 168, 127, 0.4); 
         }
         
+        /* ** NOVO: Botão Secundário (Ler Amostra) - Branco com Borda Preta ** */
+        .btn-sample {
+            background-color: var(--color-card-bg);
+            border-color: var(--color-text-dark);
+            color: var(--color-text-dark);
+            box-shadow: none; 
+            border-radius: 6px;
+            transition: background-color .2s, border-color .2s;
+            padding: 6px 10px; 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+        }
+        .btn-sample:hover {
+            background-color: #f1f1f1;
+            border-color: var(--color-text-dark);
+            color: var(--color-text-dark);
+        }
+
         /* Botão Secundário (btn-primary) */
         .btn-primary {
             background-color: var(--color-primary) !important;
@@ -460,8 +491,8 @@
             display: none !important; 
         }
         
+        /* Main content wrapper in List View (desktop) */
         #ebooksContainer.list-view-mode .ebook-card > div {
-            /* O conteúdo é o segundo div - ajusta o layout para lista */
             padding: 15px 20px !important;
             text-align: left !important;
             flex-grow: 1;
@@ -475,7 +506,29 @@
         #ebooksContainer.list-view-mode .ebook-card h5,
         #ebooksContainer.list-view-mode .ebook-card p {
             margin-bottom: 0 !important;
-            flex-grow: 1; /* Permite que o texto ocupe o espaço necessário */
+            flex-grow: initial;
+            width: 100%;
+        }
+
+        /* NOVO BLOCO: Para agrupar e reordenar texto/rating na Lista */
+        #ebooksContainer.list-view-mode .text-content-block {
+            display: flex; 
+            flex-direction: column; /* Stack them vertically */
+            text-align: left; /* Ensure text aligns left */
+            flex-grow: 1; /* Allows this block to take up available space */
+        }
+        /* Reorder children inside the text block for List View */
+        #ebooksContainer.list-view-mode .text-content-block .rating-container {
+            order: 3; /* Move rating to the bottom of the block (after title and description) */
+            justify-content: flex-start; /* Alinha stars to the left */
+            margin-top: 5px; /* Add a little spacing after the description */
+            margin-bottom: 0;
+        }
+        #ebooksContainer.list-view-mode .text-content-block h5 {
+            order: 1; 
+        }
+        #ebooksContainer.list-view-mode .text-content-block p {
+            order: 2; 
         }
         
         /* Ajuste do Preço para a linha (não mais coluna) */
@@ -489,12 +542,26 @@
             margin-bottom: 0 !important;
         }
         
-        /* Ajuste do Botão de Compra */
-        #ebooksContainer.list-view-mode .ebook-card .btn-buy {
-            width: auto !important;
+        /* Agrupa preço e botões no modo lista */
+        #ebooksContainer.list-view-mode .card-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             flex-shrink: 0;
-            padding: 8px 15px; /* Deixa o botão um pouco maior */
-            font-size: 0.9rem;
+        }
+        #ebooksContainer.list-view-mode .card-actions > * {
+            width: 100%;
+        }
+        #ebooksContainer.list-view-mode .card-actions .btn-buy {
+            margin-bottom: 5px; /* Espaçamento entre os botões */
+        }
+
+        /* ** NOVO: Restrição de Largura dos Botões no MODO LISTA (Desktop) ** */
+        @media (min-width: 768px) {
+            #ebooksContainer.list-view-mode .card-actions {
+                width: 180px; /* Largura restrita para o bloco de botões */
+                margin-left: 20px;
+            }
         }
         
         /* Responsividade para Lista em Mobile */
@@ -514,12 +581,140 @@
                 justify-content: flex-start !important;
                 margin: 10px 0;
             }
-            #ebooksContainer.list-view-mode .ebook-card .btn-buy {
-                width: 100% !important;
+            #ebooksContainer.list-view-mode .card-actions {
+                width: 100% !important; /* Garante 100% no mobile */
                 margin-left: 0;
                 margin-top: 5px;
             }
+            #ebooksContainer.list-view-mode .ebook-card .btn-buy,
+            #ebooksContainer.list-view-mode .ebook-card .btn-sample {
+                 width: 100% !important;
+            }
+            /* Garante que o rating aparece e está alinhado à esquerda no mobile list view */
+            #ebooksContainer.list-view-mode .rating-container {
+                display: flex !important;
+                justify-content: flex-start !important;
+            }
         }
+        /* ============================================================== */
+
+        /* ============================================================== */
+        /* NOVO CSS PARA RATING/ESTRELAS E POPOVER (similar Amazon) */
+        /* ============================================================== */
+        .rating-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            /* centralizado no grid, alinhado à esquerda na lista (com o .p-3) */
+            justify-content: center; 
+            margin-bottom: 5px; /* Espaçamento antes do título (reduzido) */
+            cursor: pointer;
+        }
+
+        .rating-avg {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-left: 5px;
+            line-height: 1; /* Alinha o texto com as estrelas */
+        }
+
+        /* Estrelas: Ouro para preenchidas, cinza para não preenchidas */
+        .rating-stars {
+            display: inline-block;
+            font-size: 0.75rem; /* Tamanho discreto para as estrelas (reduzido) */
+            line-height: 1;
+        }
+        
+        /* Estilo para ícones Font Awesome (gerados via JS) */
+        .rating-stars i {
+            color: #ffc107; /* Cor de preenchimento das estrelas (Ouro) */
+            margin: 0 0.5px; /* Espaçamento sutil entre as estrelas */
+        }
+        
+        .rating-stars i.fa-regular { 
+             color: #cccccc; /* Cor cinza para estrelas vazias */
+             font-weight: 400; /* Peso regular para ícones vazios */
+        }
+
+        /* Estilo do Popover de Porcentagem (mantido) */
+        .rating-popover {
+            position: absolute;
+            top: 100%; /* Abaixo da nota */
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            width: 250px;
+            background: var(--color-card-bg);
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            display: none;
+            text-align: left;
+            font-size: 0.8rem;
+        }
+        
+        .rating-popover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid var(--color-card-bg); /* Seta branca */
+        }
+        
+        .rating-popover::after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #ddd; /* Borda da seta */
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            bottom: calc(100% + 1px); 
+        }
+
+        .rating-container:hover .rating-popover {
+            display: block;
+        }
+
+        .popover-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .popover-row span {
+            flex-shrink: 0;
+            width: 30px; /* Largura para 5, 4, 3, etc. estrelas */
+            font-weight: 600;
+        }
+        .popover-row .star-progress-bar {
+            flex-grow: 1;
+            height: 8px;
+            background-color: #f0f2f2;
+            border-radius: 4px;
+            margin: 0 8px;
+            overflow: hidden;
+        }
+        .popover-row .star-progress-fill {
+            height: 100%;
+            background-color: #ffc107;
+        }
+        .popover-row .popover-percentage {
+            font-weight: 600;
+            width: 40px; /* Largura para a porcentagem */
+            text-align: right;
+        }
+        /* ============================================================== */
         
     </style>
 </head>
@@ -614,13 +809,22 @@
                             <img src="tdah.jpg" alt="Capa Ebook TDAH na Infância" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius) var(--radius) 0 0;">
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="TDAH na Infância">TDAH na Infância</h5>
-                            <p class="small text-muted mb-2">Técnicas práticas para rotina e escola.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.5" data-percentages="78,10,5,3,4">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.5</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="TDAH na Infância">TDAH na Infância</h5>
+                                <p class="small text-muted mb-2">Técnicas práticas para rotina e escola.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$90,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$60,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$60,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK1')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK1')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -632,13 +836,22 @@
                             <i class="fa-solid fa-apple-whole"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Emagrecimento em Família">Emagrecimento em Família</h5>
-                            <p class="small text-muted mb-2">Receitas saudáveis e plano alimentar para todos.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.8" data-percentages="90,5,3,1,1">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.8</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Emagrecimento em Família">Emagrecimento em Família</h5>
+                                <p class="small text-muted mb-2">Receitas saudáveis e plano alimentar para todos.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$117,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$57,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$57,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK2')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK2')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -649,13 +862,22 @@
                             <i class="fa-solid fa-money-bill-trend-up"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Renda Extra em Casa">Renda Extra em Casa</h5>
-                            <p class="small text-muted mb-2">+50 ideias testadas e aprovadas para gerar renda.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.3" data-percentages="70,15,10,3,2">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.3</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Renda Extra em Casa">Renda Extra em Casa</h5>
+                                <p class="small text-muted mb-2">+50 ideias testadas e aprovadas para gerar renda.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$107,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$57,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$57,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK3')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK3')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -666,13 +888,22 @@
                             <i class="fa-solid fa-child"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Maternidade Leve">Maternidade Leve</h5>
-                            <p class="small text-muted mb-2">Ser mãe sem perder a cabeça — guia realista e sem culpa.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.7" data-percentages="85,10,5,0,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.7</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Maternidade Leve">Maternidade Leve</h5>
+                                <p class="small text-muted mb-2">Ser mãe sem perder a cabeça — guia realista e sem culpa.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$137,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$67,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$67,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK4')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK4')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -683,13 +914,22 @@
                             <i class="fa-solid fa-house-chimney-window"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Finanças em Família">Finanças em Família</h5>
-                            <p class="small text-muted mb-2">Organize o orçamento familiar e faça o dinheiro sobrar.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.6" data-percentages="80,15,5,0,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.6</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Finanças em Família">Finanças em Família</h5>
+                                <p class="small text-muted mb-2">Organize o orçamento familiar e faça o dinheiro sobrar.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$157,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$77,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$77,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK5')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK5')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -700,13 +940,22 @@
                             <i class="fa-solid fa-bed"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Sono do Bebê em 21 Dias">Sono do Bebê em 21 Dias</h5>
-                            <p class="small text-muted mb-2">Método comprovado para noites tranquilas de sono.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.9" data-percentages="95,5,0,0,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.9</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Sono do Bebê em 21 Dias">Sono do Bebê em 21 Dias</h5>
+                                <p class="small text-muted mb-2">Método comprovado para noites tranquilas de sono.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$167,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$87,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$87,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK6')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK6')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -717,13 +966,22 @@
                             <i class="fa-solid fa-leaf"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Culinária Vegana Rápida">Culinária Vegana Rápida</h5>
-                            <p class="small text-muted mb-2">+60 receitas rápidas e saborosas para o dia a dia.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.4" data-percentages="75,15,5,5,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.4</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Culinária Vegana Rápida">Culinária Vegana Rápida</h5>
+                                <p class="small text-muted mb-2">+60 receitas rápidas e saborosas para o dia a dia.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$99,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$55,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$55,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK7')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK7')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -734,13 +992,22 @@
                             <i class="fa-solid fa-clock-rotate-left"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Produtividade Máxima">Produtividade Máxima</h5>
-                            <p class="small text-muted mb-2">Domine o Método Pomodoro e triplique sua eficiência.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.7" data-percentages="85,10,5,0,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.7</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Produtividade Máxima">Produtividade Máxima</h5>
+                                <p class="small text-muted mb-2">Domine o Método Pomodoro e triplique sua eficiência.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$99,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$55,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$55,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK8')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK8')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -752,13 +1019,22 @@
                             <i class="fa-solid fa-seedling"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Jardinagem para Iniciantes">Jardinagem para Iniciantes</h5>
-                            <p class="small text-muted mb-2">Guia para cultivar ervas e vegetais em casa.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.5" data-percentages="78,10,7,5,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.5</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Jardinagem para Iniciantes">Jardinagem para Iniciantes</h5>
+                                <p class="small text-muted mb-2">Guia para cultivar ervas e vegetais em casa.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$79,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$39,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$39,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK9')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK9')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -769,13 +1045,22 @@
                             <i class="fa-solid fa-language"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Idiomas em 3 Meses">Idiomas em 3 Meses</h5>
-                            <p class="small text-muted mb-2">Técnicas de memorização acelerada para aprender qualquer idioma.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.2" data-percentages="65,20,10,5,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.2</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Idiomas em 3 Meses">Idiomas em 3 Meses</h5>
+                                <p class="small text-muted mb-2">Técnicas de memorização acelerada para aprender qualquer idioma.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$199,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$99,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$99,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK10')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK10')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -786,13 +1071,22 @@
                             <i class="fa-solid fa-chart-line"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Marketing Digital Essencial">Marketing Digital Essencial</h5>
-                            <p class="small text-muted mb-2">Crie sua primeira campanha de sucesso em 7 dias.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.1" data-percentages="60,25,10,5,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.1</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Marketing Digital Essencial">Marketing Digital Essencial</h5>
+                                <p class="small text-muted mb-2">Crie sua primeira campanha de sucesso em 7 dias.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$129,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$65,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$65,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK11')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK11')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -803,13 +1097,22 @@
                             <i class="fa-solid fa-hand-holding-hand"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Yoga Matinal">Yoga Matinal</h5>
-                            <p class="small text-muted mb-2">Sequências de 15 minutos para mais energia e foco.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.8" data-percentages="90,5,3,1,1">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.8</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Yoga Matinal">Yoga Matinal</h5>
+                                <p class="small text-muted mb-2">Sequências de 15 minutos para mais energia e foco.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$89,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$45,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$45,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK12')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK12')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -821,13 +1124,22 @@
                             <i class="fa-solid fa-beer-mug-empty"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Cerveja Artesanal Caseira">Cerveja Artesanal Caseira</h5>
-                            <p class="small text-muted mb-2">Do básico ao avançado: faça sua própria cerveja.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.6" data-percentages="80,10,5,5,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.6</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Cerveja Artesanal Caseira">Cerveja Artesanal Caseira</h5>
+                                <p class="small text-muted mb-2">Do básico ao avançado: faça sua própria cerveja.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$149,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$79,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$79,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK13')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK13')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -838,13 +1150,22 @@
                             <i class="fa-solid fa-camera"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Fotografia com Celular PRO">Fotografia com Celular PRO</h5>
-                            <p class="small text-muted mb-2">Dicas e truques para fotos profissionais com seu smartphone.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.4" data-percentages="75,10,10,5,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.4</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Fotografia com Celular PRO">Fotografia com Celular PRO</h5>
+                                <p class="small text-muted mb-2">Dicas e truques para fotos profissionais com seu smartphone.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$99,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$49,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$49,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK14')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK14')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -855,13 +1176,22 @@
                             <i class="fa-solid fa-fire-burner"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Churrasco Perfeito">Churrasco Perfeito</h5>
-                            <p class="small text-muted mb-2">O guia do mestre: cortes, temperos e ponto ideal.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.7" data-percentages="85,10,5,0,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.7</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Churrasco Perfeito">Churrasco Perfeito</h5>
+                                <p class="small text-muted mb-2">O guia do mestre: cortes, temperos e ponto ideal.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$119,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$59,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$59,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK15')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK15')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -872,13 +1202,22 @@
                             <i class="fa-solid fa-pen-ruler"></i>
                         </div>
                         <div class="p-3 text-center">
-                            <h5 class="fw-bold mb-1 fs-6 text-truncate" title="Design para Não Designers">Design para Não Designers</h5>
-                            <p class="small text-muted mb-2">Dominando o Canva para posts e apresentações.</p>
+                            <div class="text-content-block">
+                                <div class="rating-container" data-rating="4.3" data-percentages="70,15,10,5,0">
+                                    <span class="rating-stars"></span>
+                                    <span class="rating-avg">4.3</span>
+                                </div>
+                                <h5 class="fw-bold mb-1 text-truncate" title="Design para Não Designers">Design para Não Designers</h5>
+                                <p class="small text-muted mb-2">Dominando o Canva para posts e apresentações.</p>
+                            </div>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
                                 <span class="old-price mb-1">de R$139,00</span>
-                                <span class="fw-bold" style="color: var(--color-primary); font-size: 1.25rem;">por apenas R$69,00</span>
+                                <span class="fw-bold selling-price" style="color: var(--color-primary);">por apenas R$69,00</span>
                             </div>
-                            <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK16')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                            <div class="card-actions">
+                                <button class="btn btn-buy w-100" onclick="buy('https://hotmart.com/LINK16')"><i class="fa-solid fa-bag-shopping me-1"></i> Comprar Agora</button>
+                                <!-- <a href="sample-tdah.pdf" target="_blank" class="btn btn-sample w-100 mt-2"><i class="fa-solid fa-book-open-reader me-1"></i> Ler Amostra</a> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -916,7 +1255,7 @@
                 <div class="p-3 bg-white rounded-4 shadow-sm border border-primary border-opacity-25">
                     <h6 class="fw-bold text-primary"><i class="fa-solid fa-check-circle me-2"></i>Por que comprar aqui?</h6>
                     <ul class="list-unstyled mb-0 mt-2 small">
-                        <li class="mb-1"><strong>Acesso imediato e vitalício</strong> após a compra <a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo" style="width: 50px;"></a></li>
+                        <li class="mb-1"><strong>Acesso imediato e vitalício</strong> após a compra <a href="https://www.hotmart.com/pt-BR" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><img src="logohotmart.png" alt="Logo Hotmart" class="hotmart-logo"></a></li>
                         <li class="mb-1"><strong>Pagamento 100% seguro</strong> (Cartão/Pix/Boleto).</li>
                         <li class="mb-1"><strong>Garantia incondicional de 7 dias</strong> - seu risco é zero.</li>
                         <li class="mb-1"><strong>Conteúdo direto ao ponto</strong>, aplicável desde o 1º dia.</li>
@@ -1114,6 +1453,72 @@
         }
 
         // ===========================================
+        // LÓGICA DE RATING E POPOVER (NOVO COM MEIA ESTRELA)
+        // ===========================================
+        function renderRatingStars(container) {
+            const rating = parseFloat(container.getAttribute('data-rating'));
+            const percentagesStr = container.getAttribute('data-percentages');
+            const percentages = percentagesStr.split(',').map(p => parseInt(p.trim()));
+            
+            const starsSpan = container.querySelector('.rating-stars');
+            starsSpan.innerHTML = ''; // Limpa o conteúdo
+
+            // 1. Gerar as 5 estrelas usando Font Awesome (fa-star, fa-star-half-stroke, fa-regular fa-star)
+            for (let i = 1; i <= 5; i++) {
+                const starIcon = document.createElement('i');
+                if (rating >= i) {
+                    // Estrela completa (ex: 4.5 >= 4)
+                    starIcon.className = 'fa-solid fa-star';
+                } else if (rating > i - 1 && rating < i) {
+                    // Meia estrela (ex: 4.5 > 4 e 4.5 < 5)
+                    starIcon.className = 'fa-solid fa-star-half-stroke';
+                } else {
+                    // Estrela vazia
+                    starIcon.className = 'fa-regular fa-star'; 
+                }
+                starsSpan.appendChild(starIcon);
+            }
+
+            // 2. Cria o Popover
+            const popover = document.createElement('div');
+            popover.className = 'rating-popover';
+
+            // Títulos das estrelas para o popover
+            const starLabels = [5, 4, 3, 2, 1];
+
+            // Cria as linhas de porcentagem e barra de progresso
+            starLabels.forEach((star, index) => {
+                const percentage = percentages[index] || 0; 
+                const row = document.createElement('div');
+                row.className = 'popover-row';
+                
+                // Estrelas
+                const starSpanRow = document.createElement('span'); 
+                starSpanRow.innerHTML = `${star} estrelas`;
+                row.appendChild(starSpanRow);
+                
+                // Barra de Progresso
+                const barContainer = document.createElement('div');
+                barContainer.className = 'star-progress-bar';
+                const barFill = document.createElement('div');
+                barFill.className = 'star-progress-fill';
+                barFill.style.width = `${percentage}%`;
+                barContainer.appendChild(barFill);
+                row.appendChild(barContainer);
+
+                // Porcentagem
+                const percentageSpan = document.createElement('span');
+                percentageSpan.className = 'popover-percentage';
+                percentageSpan.textContent = `${percentage}%`;
+                row.appendChild(percentageSpan);
+
+                popover.appendChild(row);
+            });
+
+            container.appendChild(popover);
+        }
+
+        // ===========================================
         // LÓGICA DE PAGINAÇÃO E BUSCA CUSTOMIZADA
         // ===========================================
         const CARDS_PER_PAGE = 8;
@@ -1121,8 +1526,14 @@
         let allEbookItems = []; 
 
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. Pega todos os cards de ebook
+            // 1. Pega todos os cards de ebook e renderiza os ratings
             allEbookItems = Array.from(document.querySelectorAll('#ebooksContainer .ebook-item'));
+            allEbookItems.forEach(item => {
+                const ratingContainer = item.querySelector('.rating-container');
+                if (ratingContainer) {
+                    renderRatingStars(ratingContainer);
+                }
+            });
 
             // 2. Adiciona o listener para a busca
             const searchInput = document.getElementById('ebookSearch');
