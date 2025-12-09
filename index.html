@@ -1519,79 +1519,83 @@
         }
 		
 		
-		
 		// ===========================================
-// NOVO: LÓGICA DE ABRIR/FECHAR POPOVER NO MOBILE (Click/Tap)
-// CORREÇÃO: Adicionado listener no Popover para fechar ao clicar nele mesmo.
-// ===========================================
+		// LÓGICA DE ABRIR/FECHAR POPOVER (ATUALIZADA)
+		// Inclui tratamento para click/tap no próprio popover fechar (essencial para mobile)
+		// ===========================================
 
-// Função para fechar o popover clicado (usada explicitamente no popover)
-function closeSelf(e) {
-    e.stopPropagation(); // Impede que o clique suba para o container ou document
-    // 'this' neste contexto é o elemento .rating-popover
-    this.classList.remove('active'); 
-}
-
-
-function togglePopover(e) {
-    // ESSENCIAL: Interrompe o clique para que não ative o closeAllPopovers no document
-    e.stopPropagation(); 
-    
-    // 'this' se refere ao .rating-container clicado
-    const popover = this.querySelector('.rating-popover');
-    
-    // Fecha todos os outros popovers abertos
-    document.querySelectorAll('.rating-popover.active').forEach(openPopover => {
-        if (openPopover !== popover) {
-            openPopover.classList.remove('active');
-        }
-    });
-
-    // Alterna o estado do popover clicado
-    popover.classList.toggle('active');
-}
-
-function closeAllPopovers(e) {
-    document.querySelectorAll('.rating-popover.active').forEach(popover => {
-        // Verifica se o clique foi fora de *qualquer* container de avaliação
-        if (!e.target.closest('.rating-container')) {
-            popover.classList.remove('active');
-        }
-    });
-}
+		// Função para fechar o popover clicado (usada explicitamente no popover)
+		function closeSelf(e) {
+			// ESSENCIAL: Impede que o clique suba para o container ou document, garantindo que ele só feche o popover
+			e.stopPropagation(); 
+			
+			// 'this' é o elemento .rating-popover que foi clicado/tocado
+			this.classList.remove('active'); 
+		}
 
 
-function setupRatingToggle() {
-    document.querySelectorAll('.rating-container').forEach(container => {
-        const popover = container.querySelector('.rating-popover');
-        
-        // 1. Listener para o CONTAINER (Abre/Fecha/Toggle)
-        container.removeEventListener('click', togglePopover); 
-        container.removeEventListener('touchstart', togglePopover); 
-        
-        container.addEventListener('click', togglePopover);
-        container.addEventListener('touchstart', togglePopover);
+		function togglePopover(e) {
+			// ESSENCIAL: Interrompe o clique/toque para que não ative o closeAllPopovers no document
+			e.stopPropagation(); 
+			
+			// 'this' se refere ao .rating-container clicado/tocado
+			const popover = this.querySelector('.rating-popover');
+			
+			// Fecha todos os outros popovers abertos
+			document.querySelectorAll('.rating-popover.active').forEach(openPopover => {
+				if (openPopover !== popover) {
+					openPopover.classList.remove('active');
+				}
+			});
 
-        // 2. Listener para o POPOVER (SÓ FECHA)
-        if (popover) {
-            popover.removeEventListener('click', closeSelf);
-            popover.removeEventListener('touchstart', closeSelf);
-            
-            popover.addEventListener('click', closeSelf);
-            popover.addEventListener('touchstart', closeSelf);
-        }
-    });
+			// Alterna o estado do popover clicado
+			popover.classList.toggle('active');
+		}
 
-    // Remove e re-adiciona o listener global para fechar ao clicar fora
-    document.removeEventListener('click', closeAllPopovers);
-    document.addEventListener('click', closeAllPopovers);
-}
+		function closeAllPopovers(e) {
+			document.querySelectorAll('.rating-popover.active').forEach(popover => {
+				// Verifica se o clique foi fora de *qualquer* container de avaliação
+				if (!e.target.closest('.rating-container')) {
+					popover.classList.remove('active');
+				}
+			});
+		}
 
-// ===========================================
-// FIM DA LÓGICA DE ABRIR/FECHAR POPOVER
-// ===========================================
-		
-		
+
+		function setupRatingToggle() {
+			document.querySelectorAll('.rating-container').forEach(container => {
+				const popover = container.querySelector('.rating-popover');
+				
+				// 1. Listener para o CONTAINER (Abre/Fecha/Toggle ao clicar/tocar nas estrelas)
+				// Usamos click e touchstart
+				container.removeEventListener('click', togglePopover); 
+				container.removeEventListener('touchstart', togglePopover); 
+				
+				container.addEventListener('click', togglePopover);
+				container.addEventListener('touchstart', togglePopover);
+
+				// 2. Listener para o POPOVER (SÓ FECHA ao clicar/tocar nele mesmo)
+				if (popover) {
+					popover.removeEventListener('click', closeSelf);
+					popover.removeEventListener('touchstart', closeSelf);
+					
+					// Adicionamos os listeners para fechar ao clicar/tocar no Popover
+					popover.addEventListener('click', closeSelf);
+					popover.addEventListener('touchstart', closeSelf);
+				}
+			});
+
+			// Remove e re-adiciona o listener global para fechar ao clicar fora
+			document.removeEventListener('click', closeAllPopovers);
+			document.addEventListener('click', closeAllPopovers);
+		}
+
+		// Quando você chama renderPage, certifique-se de chamar setupRatingToggle()
+		// Exemplo:
+		// document.addEventListener('DOMContentLoaded', () => {
+		//     // ... lógica de paginação
+		//     renderPage(products, totalPages);
+		// });
 
         // ===========================================
         // LÓGICA DE PAGINAÇÃO E BUSCA CUSTOMIZADA
